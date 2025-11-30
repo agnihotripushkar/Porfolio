@@ -21,12 +21,11 @@ const Navbar = () => {
     }, []);
 
     const navLinks = [
-        { name: 'Home', href: '#home' },
-        { name: 'Education', href: '#education' },
-        { name: 'Skills', href: '#skills' },
-        { name: 'Contract Work', href: '#contract-work' },
-        { name: 'Projects', href: '#projects' },
-        { name: 'Experience', href: '#experience' },
+        { name: 'Home', href: '/#home' },
+        { name: 'Education', href: '/#education' },
+        { name: 'Skills', href: '/#skills' },
+        { name: 'All Projects', href: '/projects' },
+        { name: 'Experience', href: '/#experience' },
     ];
 
     return (

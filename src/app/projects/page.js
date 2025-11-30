@@ -1,8 +1,12 @@
 import Link from 'next/link';
-import { FaGithub, FaExternalLinkAlt, FaAndroid, FaGlobe, FaArrowRight } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaAndroid, FaGlobe, FaArrowRight, FaArrowLeft } from 'react-icons/fa';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import { supabase } from '@/lib/supabase';
 
-const Projects = async () => {
+export const revalidate = 0; // Disable caching for now to see updates immediately
+
+export default async function ProjectsPage() {
     const { data: allProjects, error } = await supabase
         .from('projects')
         .select('*')
@@ -12,9 +16,6 @@ const Projects = async () => {
         console.error('Error fetching projects:', error);
         return <div>Error loading projects</div>;
     }
-
-    const personalProjects = allProjects?.filter(p => p.type === 'Github') || [];
-    const contractWork = allProjects?.filter(p => p.type !== 'Github') || [];
 
     const ProjectCard = ({ project }) => (
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden border border-gray-100 dark:border-gray-700 flex flex-col h-full">
@@ -64,41 +65,28 @@ const Projects = async () => {
     );
 
     return (
-        <section id="projects" className="py-20 bg-white dark:bg-gray-900">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-900 dark:text-white">
-                    Featured <span className="text-blue-600 dark:text-blue-400">Projects</span>
-                </h2>
-
-                <div className="mb-16">
-                    <h3 className="text-2xl font-bold mb-8 text-gray-800 dark:text-gray-200 border-l-4 border-blue-500 pl-4">Personal Projects</h3>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {personalProjects.map((project) => (
-                            <ProjectCard key={project.id} project={project} />
-                        ))}
-                    </div>
-                </div>
-
-                <div>
-                    <h3 className="text-2xl font-bold mb-8 text-gray-800 dark:text-gray-200 border-l-4 border-green-500 pl-4">Contract Work</h3>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {contractWork.map((project) => (
-                            <ProjectCard key={project.id} project={project} />
-                        ))}
-                    </div>
-                </div>
-
-                <div className="mt-16 text-center">
-                    <Link
-                        href="/projects"
-                        className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-white bg-blue-600 hover:bg-blue-700 md:text-lg transition-colors shadow-lg hover:shadow-xl"
-                    >
-                        View All Projects
+        <main className="min-h-screen bg-white dark:bg-gray-900">
+            <Navbar />
+            <div className="pt-24 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="mb-12">
+                    <Link href="/" className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline mb-6">
+                        <FaArrowLeft className="mr-2" /> Back to Home
                     </Link>
+                    <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+                        All <span className="text-blue-600 dark:text-blue-400">Projects</span>
+                    </h1>
+                    <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl">
+                        A collection of my personal projects, open source contributions, and professional work.
+                    </p>
+                </div>
+
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {allProjects?.map((project) => (
+                        <ProjectCard key={project.id} project={project} />
+                    ))}
                 </div>
             </div>
-        </section>
+            <Footer />
+        </main>
     );
-};
-
-export default Projects;
+}

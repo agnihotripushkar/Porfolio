@@ -33,7 +33,7 @@ const Hero = () => {
                             <FaGithub className="mr-2" size={20} /> GitHub
                         </a>
                         <a
-                            href="mailto:push@csu.fullerton.edu"
+                            href="mailto:agnihotripush@gmail.com"
                             className="flex items-center px-6 py-3 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors shadow-lg hover:shadow-xl"
                         >
                             <FaEnvelope className="mr-2" size={20} /> Email
@@ -51,11 +51,7 @@ const Hero = () => {
 
                 <div className="md:w-1/2 flex justify-center">
                     <div className="relative w-64 h-64 md:w-96 md:h-96 rounded-full overflow-hidden border-4 border-white shadow-2xl dark:border-gray-700">
-                        {/* Placeholder for profile image - using a gradient for now if image not available */}
-                        <div className="w-full h-full bg-gradient-to-tr from-blue-400 to-purple-500 flex items-center justify-center text-white text-6xl font-bold">
-                            PA
-                        </div>
-                        {/* <img src="/path/to/profile.jpg" alt="Pushkar Agnihotri" className="w-full h-full object-cover" /> */}
+                        <img src="/profile.webp" alt="Pushkar Agnihotri" className="w-full h-full object-cover" />
                     </div>
                 </div>
             </div>
