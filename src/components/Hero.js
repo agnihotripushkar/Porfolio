@@ -51,7 +51,7 @@ const Hero = () => {
 
                 <div className="md:w-1/2 flex justify-center">
                     <div className="relative w-64 h-64 md:w-96 md:h-96 rounded-full overflow-hidden border-4 border-white shadow-2xl dark:border-gray-700">
-                        <img src="/profile.webp" alt="Pushkar Agnihotri" className="w-full h-full object-cover" />
+                        <img src="/profile.jpg" alt="Pushkar Agnihotri" className="w-full h-full object-cover" />
                     </div>
                 </div>
             </div>
