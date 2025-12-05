@@ -25,6 +25,8 @@ export default async function ProjectDetail({ params }) {
         .eq('id', id)
         .single();
 
+    console.log('Project Data:', project);
+
     if (error || !project) {
         console.error('Error fetching project:', error);
         notFound();
@@ -119,7 +121,7 @@ export default async function ProjectDetail({ params }) {
                                 Project Details
                             </h3>
                             <div className="prose prose-lg dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
-                                <ReactMarkdown>{project.details || "Detailed description coming soon..."}</ReactMarkdown>
+                                <ReactMarkdown>{project.details?.replace(/\\n/g, '\n') || "Detailed description coming soon..."}</ReactMarkdown>
                             </div>
                         </div>
                     </div>
