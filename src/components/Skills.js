@@ -1,4 +1,4 @@
-import { FaTrophy, FaCertificate } from 'react-icons/fa';
+import { FaTrophy, FaCertificate, FaMedium, FaExternalLinkAlt } from 'react-icons/fa';
 
 const Skills = () => {
     const achievements = [
@@ -38,14 +38,29 @@ const Skills = () => {
                                 </li>
                             ))}
                         </ul>
-                        <div className="mt-6">
+                        <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
                             <a
                                 href="https://medium.com/@agnihotripush"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                                className="group block bg-white dark:bg-gray-900 rounded-xl p-4 border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-400 hover:shadow-md transition-all"
                             >
-                                📝 Read my Medium articles →
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center space-x-4">
+                                        <div className="bg-black text-white p-3 rounded-lg">
+                                            <FaMedium size={24} />
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                                Read my Articles
+                                            </h4>
+                                            <p className="text-sm text-gray-500 dark:text-gray-400">
+                                                Check out my technical blogs on Medium
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <FaExternalLinkAlt className="text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" />
+                                </div>
                             </a>
                         </div>
                     </div>
