@@ -2,7 +2,14 @@ import Link from 'next/link';
 import { FaGithub, FaExternalLinkAlt, FaAndroid, FaGlobe, FaArrowRight } from 'react-icons/fa';
 
 const ProjectCard = ({ project }) => (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden border border-gray-100 dark:border-gray-700 flex flex-col h-full">
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden border border-gray-100 dark:border-gray-700 flex flex-col h-full relative group">
+        {project.livelink && (
+            <div className="absolute top-0 right-0 z-10 w-24 h-24 overflow-hidden pointer-events-none">
+                <div className="absolute top-[18px] right-[-34px] w-[120px] bg-yellow-400 text-yellow-900 text-xs font-bold text-center transform rotate-45 py-1 shadow-md border-y border-yellow-500/30 dark:bg-yellow-500 dark:text-yellow-950">
+                    Freelance
+                </div>
+            </div>
+        )}
         {project.image_url && (
             <div className="h-48 overflow-hidden">
                 <img
