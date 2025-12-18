@@ -15,7 +15,7 @@ const FeaturedProjects = async ({ limit }) => {
     }
 
     let personalProjects = allProjects?.filter(p => p.livelink === null) || [];
-    let contractWork = allProjects?.filter(p => p.livelink !== null) || [];
+    let contractWork = allProjects?.filter(p => p.isFreelancing) || [];
 
     if (limit) {
         personalProjects = personalProjects.slice(0, limit);
