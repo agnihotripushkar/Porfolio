@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FaLinkedin, FaGithub, FaEnvelope, FaFileDownload } from 'react-icons/fa';
+import { FaLinkedin, FaGithub, FaEnvelope, FaFileDownload, FaLink } from 'react-icons/fa';
 
 const Hero = () => {
     return (
@@ -37,6 +37,14 @@ const Hero = () => {
                             className="flex items-center px-6 py-3 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors shadow-lg hover:shadow-xl"
                         >
                             <FaEnvelope className="mr-2" size={20} /> Email
+                        </a>
+                        <a
+                            href="https://linktr.ee/push1413"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center px-6 py-3 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors shadow-lg hover:shadow-xl"
+                        >
+                            <FaLink className="mr-2" size={20} /> Linktree
                         </a>
                         <a
                             href="/Pushkar_Agnihotri_Resume.pdf"

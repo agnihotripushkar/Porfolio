@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FaLinkedin, FaGithub, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaLinkedin, FaGithub, FaEnvelope, FaMapMarkerAlt, FaLink } from 'react-icons/fa';
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
@@ -33,6 +33,14 @@ const Footer = () => {
                                 className="text-gray-400 hover:text-white transition-colors"
                             >
                                 <FaEnvelope size={24} />
+                            </a>
+                            <a
+                                href="https://linktr.ee/push1413"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-gray-400 hover:text-white transition-colors"
+                            >
+                                <FaLink size={24} />
                             </a>
                         </div>
                     </div>
