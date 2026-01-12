@@ -54,6 +54,8 @@ const Footer = () => {
                             <li><Link href="#skills" className="text-gray-400 hover:text-white transition-colors">Skills</Link></li>
                             <li><Link href="#projects" className="text-gray-400 hover:text-white transition-colors">Projects</Link></li>
                             <li><Link href="#experience" className="text-gray-400 hover:text-white transition-colors">Experience</Link></li>
+                            <li><Link href="/privacy-policy" className="text-gray-400 hover:text-white transition-colors">Extension Privacy Policy</Link></li>
+                            <li><Link href="/privacy-policy/goal-focus" className="text-gray-400 hover:text-white transition-colors">App Privacy Policy</Link></li>
                         </ul>
                     </div>
 
