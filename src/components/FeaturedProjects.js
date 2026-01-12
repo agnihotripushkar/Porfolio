@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { FaGithub, FaExternalLinkAlt, FaAndroid, FaGlobe, FaArrowRight } from 'react-icons/fa';
 import ImportedProjectCard from './ProjectCard';
 import { supabase } from '@/lib/supabase';
+import { publishedApps } from '@/data/projects';
 
 const FeaturedProjects = async ({ limit }) => {
     const { data: allProjects, error } = await supabase
@@ -17,6 +18,8 @@ const FeaturedProjects = async ({ limit }) => {
     let personalProjects = allProjects?.filter(p => p.livelink === null) || [];
     let contractWork = allProjects?.filter(p => p.isFreelancing) || [];
 
+
+
     if (limit) {
         personalProjects = personalProjects.slice(0, limit);
         contractWork = contractWork.slice(0, limit);
@@ -30,6 +33,15 @@ const FeaturedProjects = async ({ limit }) => {
                 <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-900 dark:text-white">
                     Featured <span className="text-blue-600 dark:text-blue-400">Projects</span>
                 </h2>
+
+                <div className="mb-16">
+                    <h3 className="text-2xl font-bold mb-8 text-gray-800 dark:text-gray-200 border-l-4 border-purple-500 pl-4">Published Apps & Extensions</h3>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {publishedApps.map((project) => (
+                            <ProjectCard key={project.id} project={project} />
+                        ))}
+                    </div>
+                </div>
 
                 <div className="mb-16">
                     <h3 className="text-2xl font-bold mb-8 text-gray-800 dark:text-gray-200 border-l-4 border-blue-500 pl-4">Personal Projects</h3>

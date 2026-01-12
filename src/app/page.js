@@ -1,9 +1,10 @@
+import Articles from '@/components/Articles';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
-import Skills from '@/components/Skills';
-import Experience from '@/components/Experience';
-import FeaturedProjects from '@/components/FeaturedProjects';
 import Education from '@/components/Education';
+import Skills from '@/components/Skills';
+import FeaturedProjects from '@/components/FeaturedProjects';
+import Experience from '@/components/Experience';
 import Footer from '@/components/Footer';
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
       <Skills />
       <FeaturedProjects limit={3} />
       <Experience />
+      <Articles />
       <Footer />
     </main>
   );

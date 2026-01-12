@@ -1,131 +1,146 @@
+import { publishedApps } from '@/data/projects';
+import { supabase } from '@/lib/supabase';
+import Image from 'next/image';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { FaGithub, FaExternalLinkAlt, FaAndroid, FaGlobe, FaArrowLeft, FaCalendarAlt, FaTools, FaCode } from 'react-icons/fa';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import { FaGithub, FaExternalLinkAlt, FaAndroid, FaChrome, FaArrowLeft } from 'react-icons/fa';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { supabase } from '@/lib/supabase';
 
-// We can't statically generate params easily with dynamic DB data without fetching all IDs first.
-// For now, we'll switch to dynamic rendering or fetch IDs if needed.
-// To keep it simple and robust, we will remove generateStaticParams for now 
-// or implement it by fetching all IDs from Supabase.
 export async function generateStaticParams() {
-    const { data: projects } = await supabase.from('projects').select('id');
-    return projects?.map((project) => ({
+    return publishedApps.map((project) => ({
         id: project.id,
-    })) || [];
+    }));
 }
 
-export default async function ProjectDetail({ params }) {
+async function getProject(id) {
+    const localProject = publishedApps.find((p) => p.id === id);
+    if (localProject) return localProject;
+
+    // Fallback to Supabase for other projects (contract/personal) if we want to expand this later
+    // For now, only publishedApps have details pages as requested
+    return null;
+}
+
+export default async function ProjectDetails({ params }) {
     const { id } = await params;
-    const { data: project, error } = await supabase
-        .from('projects')
-        .select('*')
-        .eq('id', id)
-        .single();
+    const project = await getProject(id);
 
-    console.log('Project Data:', project);
-
-    if (error || !project) {
-        console.error('Error fetching project:', error);
-        notFound();
+    if (!project) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+                <div className="text-center">
+                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Project Not Found</h1>
+                    <Link href="/" className="text-blue-600 hover:text-blue-500">
+                        &larr; Back to Home
+                    </Link>
+                </div>
+            </div>
+        );
     }
 
     return (
-        <main className="min-h-screen bg-white dark:bg-gray-900">
+        <main className="min-h-screen bg-gray-50 dark:bg-gray-900">
             <Navbar />
-            <div className="pt-24 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <Link href="/projects" className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline mb-8">
+            <div className="pt-24 pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <Link
+                    href="/#projects"
+                    className="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 mb-8 transition-colors"
+                >
                     <FaArrowLeft className="mr-2" /> Back to Projects
                 </Link>
 
-                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700">
-                    <div className="p-8 md:p-12">
-                        <div className="grid md:grid-cols-2 gap-12 mb-12">
-                            <div className="flex flex-col justify-center">
-                                <div className="flex items-center gap-3 mb-6">
-                                    <span className={`px-4 py-1.5 rounded-full text-sm font-medium ${project.type === 'Github' ? 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200' :
-                                        project.type === 'App' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
-                                            'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
-                                        }`}>
-                                        {project.type === 'Github' ? 'Open Source' : project.type === 'App' ? 'Mobile App' : 'Web App'}
+                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
+                    {/* Header Section */}
+                    <div className="p-8 md:p-12 border-b border-gray-100 dark:border-gray-700">
+                        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+                            <div className="flex-1">
+                                <div className="flex items-center gap-3 mb-4">
+                                    <span className={`px-3 py-1 rounded-full text-xs font-semibold 
+                                        ${project.type === 'App' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
+                                            project.type === 'Extension' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' :
+                                                'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'}`}>
+                                        {project.type}
                                     </span>
                                 </div>
-                                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+                                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                                     {project.title}
                                 </h1>
-                                <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+                                <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                                     {project.description}
                                 </p>
-
-                                <div className="flex flex-wrap gap-4">
-                                    {project.livelink && (
-                                        <a
-                                            href={project.livelink}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex items-center px-8 py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl font-medium text-lg group"
-                                        >
-                                            <FaExternalLinkAlt className="mr-2 group-hover:scale-110 transition-transform" /> View Live Demo
-                                        </a>
-                                    )}
-                                    {project.link && (
-                                        <a
-                                            href={project.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex items-center px-8 py-4 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-all shadow-md hover:shadow-lg font-medium text-lg group"
-                                        >
-                                            <FaGithub className="mr-2 text-xl group-hover:scale-110 transition-transform" /> View Source Code
-                                        </a>
-                                    )}
-                                </div>
                             </div>
 
-                            <div className="relative h-[400px] md:h-auto overflow-hidden rounded-xl shadow-lg group">
-                                {project.image_url ? (
-                                    <img
-                                        src={project.image_url}
-                                        alt={project.title}
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                    />
-                                ) : (
-                                    <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                                        <span className="text-gray-400 dark:text-gray-500 text-lg">No Image Available</span>
-                                    </div>
+                            <div className="flex gap-4 shrink-0">
+                                {project.link && (
+                                    <a
+                                        href={project.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl"
+                                        title={project.type === 'App' ? 'View on Play Store' : 'View Store Listing'}
+                                    >
+                                        {project.type === 'App' ? <FaAndroid size={24} /> :
+                                            project.type === 'Extension' ? <FaChrome size={24} /> :
+                                                <FaExternalLinkAlt size={20} />}
+                                    </a>
                                 )}
                             </div>
                         </div>
+                    </div>
 
-                        <div className="mb-12">
-                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-                                <FaCode className="mr-3 text-blue-600 dark:text-blue-400" />
-                                Technologies Used
-                            </h3>
-                            <div className="flex flex-wrap gap-3">
-                                {(project.technologies || ["React", "Next.js", "Tailwind CSS", "Supabase"]).map((tech, index) => (
-                                    <span
-                                        key={index}
-                                        className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium hover:bg-blue-50 dark:hover:bg-gray-600 hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-default"
-                                    >
-                                        {tech}
-                                    </span>
-                                ))}
+                    {/* Content Section */}
+                    <div className="p-8 md:p-12 grid md:grid-cols-3 gap-12">
+                        {/* Main Info */}
+                        <div className="md:col-span-2 space-y-8">
+                            {project.image_url && (
+                                <div className="rounded-xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700">
+                                    <img
+                                        src={project.image_url}
+                                        alt={project.title}
+                                        className="w-full h-auto object-cover"
+                                    />
+                                </div>
+                            )}
+
+                            <div>
+                                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Overview</h2>
+                                <div className="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
+                                    <div className="whitespace-pre-wrap">{project.longDescription || project.description}</div>
+                                </div>
                             </div>
                         </div>
 
-                        <div className="border-t border-gray-200 dark:border-gray-700 pt-12">
-                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 flex items-center">
-                                <FaTools className="mr-3 text-blue-600 dark:text-blue-400" />
-                                Project Details
-                            </h3>
-                            <div className="prose prose-lg dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
-                                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                                    {project.details?.replace(/\\n/g, '\n') || "Detailed description coming soon..."}
-                                </ReactMarkdown>
-                            </div>
+                        {/* Sidebar */}
+                        <div className="space-y-8">
+                            {project.techStack && (
+                                <div>
+                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Tech Stack</h3>
+                                    <div className="flex flex-wrap gap-2">
+                                        {project.techStack.map((tech) => (
+                                            <span
+                                                key={tech}
+                                                className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-md"
+                                            >
+                                                {tech}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {project.features && (
+                                <div>
+                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Key Features</h3>
+                                    <ul className="space-y-2">
+                                        {project.features.map((feature) => (
+                                            <li key={feature} className="flex items-start text-gray-600 dark:text-gray-300 text-sm">
+                                                <span className="mr-2 text-blue-500">•</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
