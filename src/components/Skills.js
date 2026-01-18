@@ -38,7 +38,7 @@ const Skills = () => {
                                 </li>
                             ))}
                         </ul>
-                        <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+                        {/* <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
                             <a
                                 href="https://medium.com/@agnihotripush"
                                 target="_blank"
@@ -62,7 +62,7 @@ const Skills = () => {
                                     <FaExternalLinkAlt className="text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" />
                                 </div>
                             </a>
-                        </div>
+                        </div> */}
                     </div>
 
                     {/* Certificates */}

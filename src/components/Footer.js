@@ -49,13 +49,9 @@ const Footer = () => {
                     <div>
                         <h3 className="text-xl font-bold mb-4 text-blue-400">Quick Links</h3>
                         <ul className="space-y-2">
-                            <li><Link href="#home" className="text-gray-400 hover:text-white transition-colors">Home</Link></li>
-                            <li><Link href="#education" className="text-gray-400 hover:text-white transition-colors">Education</Link></li>
-                            <li><Link href="#skills" className="text-gray-400 hover:text-white transition-colors">Skills</Link></li>
-                            <li><Link href="#projects" className="text-gray-400 hover:text-white transition-colors">Projects</Link></li>
-                            <li><Link href="#experience" className="text-gray-400 hover:text-white transition-colors">Experience</Link></li>
                             <li><Link href="/privacy-policy" className="text-gray-400 hover:text-white transition-colors">Extension Privacy Policy</Link></li>
                             <li><Link href="/privacy-policy/goal-focus" className="text-gray-400 hover:text-white transition-colors">App Privacy Policy</Link></li>
+                            <li><Link href="/privacy-policy/f1-companion" className="text-gray-400 hover:text-white transition-colors">F1 Companion Privacy Policy</Link></li>
                         </ul>
                     </div>
 

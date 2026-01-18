@@ -49,5 +49,30 @@ It runs primarily on whiteboard tools like Excalidraw, Lucidchart, and Miro.`,
             'Draggable Interface',
             'Visual Alerts'
         ]
+    },
+    {
+        id: 'app-2',
+        title: 'F1 Companion',
+        description: 'A comprehensive mobile application designed to assist F1 visa students throughout their journey—from preparing for their flight to the US to maintaining compliance during their stay.',
+        longDescription: `F1 Companion is a comprehensive mobile application designed to assist F1 visa students throughout their journey—from preparing for their flight to the US to maintaining compliance during their stay.
+
+Features include:
+- **Journey Mode (Pre-Arrival)**: Flight Widget (Countdown), Packing List, and Flight Guide (Tips for baggage, forex, immigration).
+- **Student Mode (Post-Arrival)**: Compliance Tracker (OPT, Visa status), Secure Wallet (Store SSN, I-94 locally), CPT/OPT Guides, and Tax Guide.
+- **General**: Dynamic Theming (Light/Dark/System), Privacy-First (Local storage), and App Mode Switcher.`,
+        image_url: '', // Placeholder
+        type: 'App',
+        link: '#',
+        livelink: '#',
+        techStack: ['React Native', 'TypeScript', 'Zustand', 'React Navigation', 'Async Storage', 'React Native Paper'],
+        features: [
+            'Flight Widget & Countdown',
+            'Packing List & Flight Guide',
+            'Compliance Tracker',
+            'Secure Wallet (Local Encrypted)',
+            'CPT & OPT Eligibility Guides',
+            'Tax Guide',
+            'Dynamic Theming'
+        ]
     }
 ];
