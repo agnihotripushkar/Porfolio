@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FaGithub, FaExternalLinkAlt, FaAndroid, FaGlobe, FaArrowRight } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaAndroid, FaGlobe, FaArrowRight, FaChrome } from 'react-icons/fa';
 
 const ProjectCard = ({ project }) => {
     // Check for various casing/naming conventions
@@ -29,6 +29,7 @@ const ProjectCard = ({ project }) => {
                         {project.type === 'Github' && <FaGithub className="text-2xl text-gray-900 dark:text-white" />}
                         {project.type === 'App' && <FaAndroid className="text-2xl text-green-600 dark:text-green-400" />}
                         {(project.type === 'Web' || project.type === 'Web App') && <FaGlobe className="text-2xl text-blue-600 dark:text-blue-400" />}
+                        {project.type === 'Extension' && <FaChrome className="text-2xl text-yellow-600 dark:text-yellow-400" />}
                     </div>
                     {project.link && (
                         <a
