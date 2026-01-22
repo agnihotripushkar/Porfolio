@@ -45,3 +45,20 @@ export async function getAllProjects() {
     contract_work: data.filter(p => p.category === 'contract_work')
   };
 }
+/**
+ * Fetches all projects as a flat array.
+ * @returns {Promise<Array>} - Array of all projects
+ */
+export async function getFlatProjects() {
+  const { data, error } = await supabase
+    .from('projects')
+    .select('*')
+    .order('display_order', { ascending: true });
+
+  if (error) {
+    console.error('Error fetching flat projects:', error.message);
+    return [];
+  }
+
+  return data || [];
+}
