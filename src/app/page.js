@@ -7,6 +7,8 @@ import FeaturedProjects from '@/components/FeaturedProjects';
 import Experience from '@/components/Experience';
 import Footer from '@/components/Footer';
 
+export const revalidate = 0; // Disable caching to see Supabase updates immediately
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-white dark:bg-gray-900">

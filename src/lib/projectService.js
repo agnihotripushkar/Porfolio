@@ -10,7 +10,8 @@ export async function getProjectsByCategory(category) {
     .from('projects')
     .select('*')
     .eq('category', category)
-    .order('display_order', { ascending: true });
+    .order('display_order', { ascending: true })
+    .order('created_at', { ascending: false });
 
   if (error) {
     console.error(`Error fetching ${category}:`, error.message);
