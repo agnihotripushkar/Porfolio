@@ -1,24 +1,35 @@
-import { publishedApps } from '@/data/projects';
 import { supabase } from '@/lib/supabase';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaGithub, FaExternalLinkAlt, FaAndroid, FaChrome, FaArrowLeft } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaAndroid, FaChrome, FaArrowLeft, FaGlobe } from 'react-icons/fa';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
+export const revalidate = 0; // Disable caching for now to see updates immediately
+
 export async function generateStaticParams() {
-    return publishedApps.map((project) => ({
-        id: project.id,
-    }));
+    const { data: projects } = await supabase
+        .from('projects')
+        .select('id');
+
+    return projects?.map((project) => ({
+        id: project.id.toString(),
+    })) || [];
 }
 
 async function getProject(id) {
-    const localProject = publishedApps.find((p) => p.id === id);
-    if (localProject) return localProject;
+    const { data, error } = await supabase
+        .from('projects')
+        .select('*')
+        .eq('id', id)
+        .single();
 
-    // Fallback to Supabase for other projects (contract/personal) if we want to expand this later
-    // For now, only publishedApps have details pages as requested
-    return null;
+    if (error) {
+        console.error('Error fetching project details:', error);
+        return null;
+    }
+
+    return data;
 }
 
 export default async function ProjectDetails({ params }) {
@@ -43,10 +54,10 @@ export default async function ProjectDetails({ params }) {
             <Navbar />
             <div className="pt-24 pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <Link
-                    href="/#projects"
+                    href="/projects"
                     className="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 mb-8 transition-colors"
                 >
-                    <FaArrowLeft className="mr-2" /> Back to Projects
+                    <FaArrowLeft className="mr-2" /> Back to All Projects
                 </Link>
 
                 <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
@@ -56,10 +67,10 @@ export default async function ProjectDetails({ params }) {
                             <div className="flex-1">
                                 <div className="flex items-center gap-3 mb-4">
                                     <span className={`px-3 py-1 rounded-full text-xs font-semibold 
-                                        ${project.type === 'App' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
-                                            project.type === 'Extension' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' :
+                                        ${project.project_type === 'App' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
+                                            project.project_type === 'Extension' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' :
                                                 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'}`}>
-                                        {project.type}
+                                        {project.project_type}
                                     </span>
                                 </div>
                                 <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -71,16 +82,27 @@ export default async function ProjectDetails({ params }) {
                             </div>
 
                             <div className="flex gap-4 shrink-0">
-                                {project.link && (
+                                {project.github_link && (
                                     <a
-                                        href={project.link}
+                                        href={project.github_link}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl"
-                                        title={project.type === 'App' ? 'View on Play Store' : 'View Store Listing'}
+                                        className="p-3 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-colors shadow-lg"
+                                        title="View Source on GitHub"
                                     >
-                                        {project.type === 'App' ? <FaAndroid size={24} /> :
-                                            project.type === 'Extension' ? <FaChrome size={24} /> :
+                                        <FaGithub size={24} />
+                                    </a>
+                                )}
+                                {project.live_link && (
+                                    <a
+                                        href={project.live_link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-lg"
+                                        title="View Live Version"
+                                    >
+                                        {project.project_type === 'App' ? <FaAndroid size={24} /> :
+                                            project.project_type === 'Extension' ? <FaChrome size={24} /> :
                                                 <FaExternalLinkAlt size={20} />}
                                     </a>
                                 )}
@@ -105,18 +127,18 @@ export default async function ProjectDetails({ params }) {
                             <div>
                                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Overview</h2>
                                 <div className="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
-                                    <div className="whitespace-pre-wrap">{project.longDescription || project.description}</div>
+                                    <div className="whitespace-pre-wrap">{project.long_description || project.description}</div>
                                 </div>
                             </div>
                         </div>
 
                         {/* Sidebar */}
                         <div className="space-y-8">
-                            {project.techStack && (
+                            {project.tech_stack && project.tech_stack.length > 0 && (
                                 <div>
                                     <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Tech Stack</h3>
                                     <div className="flex flex-wrap gap-2">
-                                        {project.techStack.map((tech) => (
+                                        {project.tech_stack.map((tech) => (
                                             <span
                                                 key={tech}
                                                 className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-md"
@@ -128,7 +150,7 @@ export default async function ProjectDetails({ params }) {
                                 </div>
                             )}
 
-                            {project.features && (
+                            {project.features && project.features.length > 0 && (
                                 <div>
                                     <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Key Features</h3>
                                     <ul className="space-y-2">
