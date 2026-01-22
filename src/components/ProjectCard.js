@@ -2,9 +2,8 @@ import Link from 'next/link';
 import { FaGithub, FaExternalLinkAlt, FaAndroid, FaGlobe, FaArrowRight, FaChrome } from 'react-icons/fa';
 
 const ProjectCard = ({ project }) => {
-    // Check for various casing/naming conventions
-    const isFreelance = project.isFreelancing || project.isfreelancing || project.is_freelancing;
-    console.log('Project:', project.title, 'isFreelance:', isFreelance, 'Raw:', project);
+    const isFreelance = project.category === 'contract_work';
+
     return (
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden border border-gray-100 dark:border-gray-700 flex flex-col h-full relative group">
             {isFreelance && (
@@ -26,14 +25,14 @@ const ProjectCard = ({ project }) => {
             <div className="p-6 flex-grow">
                 <div className="flex justify-between items-start mb-4">
                     <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-lg">
-                        {project.type === 'Github' && <FaGithub className="text-2xl text-gray-900 dark:text-white" />}
-                        {project.type === 'App' && <FaAndroid className="text-2xl text-green-600 dark:text-green-400" />}
-                        {(project.type === 'Web' || project.type === 'Web App') && <FaGlobe className="text-2xl text-blue-600 dark:text-blue-400" />}
-                        {project.type === 'Extension' && <FaChrome className="text-2xl text-yellow-600 dark:text-yellow-400" />}
+                        {project.project_type === 'Github' && <FaGithub className="text-2xl text-gray-900 dark:text-white" />}
+                        {project.project_type === 'App' && <FaAndroid className="text-2xl text-green-600 dark:text-green-400" />}
+                        {(project.project_type === 'Web' || project.project_type === 'Web App') && <FaGlobe className="text-2xl text-blue-600 dark:text-blue-400" />}
+                        {project.project_type === 'Extension' && <FaChrome className="text-2xl text-yellow-600 dark:text-yellow-400" />}
                     </div>
-                    {project.link && (
+                    {project.github_link && (
                         <a
-                            href={project.link}
+                            href={project.github_link}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
@@ -55,9 +54,9 @@ const ProjectCard = ({ project }) => {
                     View Details <FaArrowRight className="ml-1 text-xs" />
                 </Link>
 
-                {project.livelink && (
+                {project.live_link && (
                     <a
-                        href={project.livelink}
+                        href={project.live_link}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
@@ -68,7 +67,6 @@ const ProjectCard = ({ project }) => {
             </div>
         </div>
     );
-
 };
 
 export default ProjectCard;
