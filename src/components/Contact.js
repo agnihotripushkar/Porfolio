@@ -26,7 +26,7 @@ const Contact = () => {
                                     </div>
                                     <div>
                                         <p className="text-sm text-gray-500 dark:text-gray-400">Email</p>
-                                        <p className="text-lg font-medium text-gray-900 dark:text-white">agnihotripushkar1413@gmail.com</p>
+                                        <p className="text-lg font-medium text-gray-900 dark:text-white">push@csu.fullerton.edu</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center space-x-4">
