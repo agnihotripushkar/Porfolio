@@ -21,7 +21,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={outfit.className}>{children}</body>
+      <head>
+        <link rel="stylesheet" href="https://s.pageclip.co/v1/pageclip.css" media="screen" />
+      </head>
+      <body className={outfit.className}>
+        {children}
+        <script src="https://s.pageclip.co/v1/pageclip.js" charSet="utf-8"></script>
+      </body>
     </html>
   );
 }
