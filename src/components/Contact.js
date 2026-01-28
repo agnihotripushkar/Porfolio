@@ -52,7 +52,7 @@ const Contact = () => {
 
                     {/* Contact Form */}
                     <div className="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
-                        <form action="https://send.pageclip.co/portfolio" className="pageclip-form space-y-6" method="post">
+                        <form action="https://send.pageclip.co/FxA0ati0WzwdOMeyW9NyyXtxh0sPbwJK/contact" className="pageclip-form space-y-6" method="post">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Full Name</label>
