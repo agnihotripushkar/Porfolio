@@ -1,7 +1,10 @@
+"use client";
+
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import Link from 'next/link';
+import { FaGraduationCap, FaGooglePlay } from 'react-icons/fa';
+import remarkGfm from 'remark-gfm';
 
 const privacyPolicyContent = `
 # Privacy Policy for F1Companion
@@ -196,14 +199,58 @@ This Privacy Policy is designed to comply with:
 
 export default function F1CompanionPrivacyPolicy() {
     return (
-        <main className="min-h-screen bg-white dark:bg-gray-900">
-            <Navbar />
-            <div className="container mx-auto px-4 py-8 max-w-4xl pt-24">
-                <article className="prose dark:prose-invert lg:prose-xl mx-auto">
-                    <ReactMarkdown>{privacyPolicyContent}</ReactMarkdown>
-                </article>
-            </div>
-            <Footer />
-        </main>
+        <div className="bg-[#fcfdfc] dark:bg-[#090b0a] min-h-screen text-slate-900 dark:text-slate-100 font-sans selection:bg-[#136dec]/30 selection:text-slate-900 dark:selection:text-white relative">
+            {/* Subtle Grid Background */}
+            <div className="fixed inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none z-0"></div>
+
+            {/* Navigation (F1Companion Brand, Not Portfolio) */}
+            <nav className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-6 md:px-10 py-4 backdrop-blur-xl border-b border-slate-200/50 dark:border-white/5 bg-white/70 dark:bg-[#090b0a]/70">
+                <Link href="/f1-companion" className="text-xl font-bold tracking-tight flex items-center gap-2.5 group">
+                    <div className="w-8 h-8 rounded-lg bg-[#101822] dark:bg-white flex items-center justify-center shadow-md">
+                        <FaGraduationCap className="text-[#136dec] text-sm" />
+                    </div>
+                    <span className="text-slate-900 dark:text-white font-semibold flex items-center tracking-tighter">F1<span className="text-slate-500 font-normal ml-0.5">Companion</span></span>
+                </Link>
+                <div className="flex items-center gap-6">
+                    <a href="https://play.google.com/store/apps/details?id=me.pushkaragnihotri.f1companion&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" className="flex px-5 py-2 rounded-full bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-200 text-white dark:text-[#090b0a] text-sm font-semibold transition-all items-center gap-2 shadow-sm">
+                        <FaGooglePlay className="text-xs" /> Download
+                    </a>
+                </div>
+            </nav>
+
+            {/* Main Content Area */}
+            <main className="relative z-10 pt-32 pb-24 px-6 md:px-12 max-w-4xl mx-auto">
+                <div className="bg-white dark:bg-[#111613] rounded-3xl p-8 md:p-14 border border-slate-200/80 dark:border-white/5 shadow-xl dark:shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
+                    <article className="prose prose-slate dark:prose-invert max-w-none 
+                        prose-headings:font-bold prose-headings:tracking-tight 
+                        prose-h1:text-3xl md:prose-h1:text-4xl prose-h1:mb-8
+                        prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-slate-100 dark:prose-h2:border-white/5 prose-h2:pb-2
+                        prose-h3:text-lg prose-h3:text-slate-700 dark:prose-h3:text-slate-300
+                        prose-p:text-slate-600 dark:prose-p:text-slate-400 prose-p:leading-relaxed
+                        prose-a:text-[#136dec] prose-a:no-underline hover:prose-a:underline
+                        prose-ul:text-slate-600 dark:prose-ul:text-slate-400
+                        prose-strong:text-slate-800 dark:prose-strong:text-slate-200
+                        prose-table:border-collapse prose-td:border prose-td:border-slate-200 dark:prose-td:border-slate-700 prose-th:border prose-th:border-slate-200 dark:prose-th:border-slate-700 prose-td:p-3 prose-th:p-3 prose-th:bg-slate-50 dark:prose-th:bg-slate-800"
+                    >
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                            {privacyPolicyContent}
+                        </ReactMarkdown>
+                    </article>
+                </div>
+            </main>
+
+            {/* Simple Footer */}
+            <footer className="relative z-10 px-6 py-12 border-t border-slate-200/80 dark:border-white/5 bg-transparent mt-12">
+                <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div className="flex items-center gap-2.5">
+                        <div className="w-6 h-6 rounded-md bg-[#101822] dark:bg-white flex items-center justify-center opacity-70">
+                            <FaGraduationCap className="text-[#136dec] text-[10px]" />
+                        </div>
+                        <span className="text-sm font-bold tracking-tight text-slate-500 flex items-center">F1<span className="font-normal ml-0.5">Companion Legal</span></span>
+                    </div>
+                    <p className="text-slate-400 dark:text-slate-600 text-xs font-medium">© {new Date().getFullYear()} Pushkar Agnihotri.</p>
+                </div>
+            </footer>
+        </div>
     );
 }
