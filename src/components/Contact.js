@@ -1,111 +1,110 @@
 "use client";
-import { FaPaperPlane, FaEnvelope, FaMapMarkerAlt, FaPhone } from 'react-icons/fa';
+import { FaPaperPlane, FaEnvelope, FaMapMarkerAlt, FaLinkedin, FaGithub } from 'react-icons/fa';
 
 const Contact = () => {
     return (
-        <section id="contact" className="py-20 bg-gray-50 dark:bg-gray-800/50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                        Get In Touch
+        <section id="contact" className="py-24 relative z-10 bg-transparent">
+            <div className="max-w-6xl mx-auto px-6 lg:px-8">
+                <div className="text-center md:text-left mb-16">
+                    <h2 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">
+                        Get In Touch.
                     </h2>
-                    <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                        Have a project in mind or just want to chat? Feel free to reach out!
+                    <p className="text-lg text-slate-500 font-medium max-w-2xl">
+                        Have a project in mind or just want to chat? Feel free to reach out.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
                     {/* Contact Information */}
-                    <div className="space-y-8">
-                        <div className="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
-                            <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Contact Information</h3>
+                    <div className="lg:w-1/3 space-y-8">
+                        <div>
+                            <p className="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                                I&apos;m always open to discussing new projects, creative ideas or opportunities to be part of your vision.
+                            </p>
                             <div className="space-y-6">
-                                <div className="flex items-center space-x-4">
-                                    <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400">
-                                        <FaEnvelope size={20} />
+                                <div className="flex items-center space-x-4 group">
+                                    <div className="w-12 h-12 bg-slate-50 dark:bg-white/5 rounded-2xl flex items-center justify-center border border-slate-100 dark:border-white/5 group-hover:bg-[#136dec]/10 dark:group-hover:bg-[#136dec]/20 transition-colors">
+                                        <FaEnvelope className="text-xl text-slate-400 group-hover:text-[#136dec] transition-colors" />
                                     </div>
                                     <div>
-                                        <p className="text-sm text-gray-500 dark:text-gray-400">Email</p>
-                                        <p className="text-lg font-medium text-gray-900 dark:text-white">push@csu.fullerton.edu</p>
+                                        <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-0.5">Email</p>
+                                        <a href="mailto:push@csu.fullerton.edu" className="text-base font-semibold text-slate-900 dark:text-white hover:text-[#136dec] dark:hover:text-blue-400 transition-colors">push@csu.fullerton.edu</a>
                                     </div>
                                 </div>
-                                <div className="flex items-center space-x-4">
-                                    <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400">
-                                        <FaMapMarkerAlt size={20} />
+                                <div className="flex items-center space-x-4 group">
+                                    <div className="w-12 h-12 bg-slate-50 dark:bg-white/5 rounded-2xl flex items-center justify-center border border-slate-100 dark:border-white/5">
+                                        <FaMapMarkerAlt className="text-xl text-slate-400" />
                                     </div>
                                     <div>
-                                        <p className="text-sm text-gray-500 dark:text-gray-400">Location</p>
-                                        <p className="text-lg font-medium text-gray-900 dark:text-white">California, USA</p>
+                                        <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-0.5">Location</p>
+                                        <p className="text-base font-semibold text-slate-900 dark:text-white">Fullerton, CA, USA</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        {/* Social or Extra Info */}
-                        <div className="bg-blue-600 rounded-2xl p-8 text-white shadow-lg shadow-blue-500/20">
-                            <h3 className="text-xl font-semibold mb-4">Let's build something amazing together!</h3>
-                            <p className="opacity-90">
-                                I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions.
-                            </p>
-                        </div>
                     </div>
 
                     {/* Contact Form */}
-                    <div className="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
-                        <form action="https://send.pageclip.co/FxA0ati0WzwdOMeyW9NyyXtxh0sPbwJK/contact" className="pageclip-form space-y-6" method="post">
+                    <div className="lg:w-2/3 bg-white/60 dark:bg-white/5 backdrop-blur-lg p-8 md:p-10 rounded-3xl border border-slate-200/50 dark:border-white/10 shadow-sm relative overflow-hidden group hover:shadow-blue-500/10 transition-all duration-500">
+                        <div className="absolute top-0 left-0 w-64 h-64 bg-blue-500/5 blur-3xl rounded-full -z-10 group-hover:bg-blue-500/20 transition-all duration-500"></div>
+                        <div className="absolute bottom-0 right-0 w-64 h-64 bg-purple-500/5 blur-3xl rounded-full -z-10 group-hover:bg-purple-500/20 transition-all duration-500"></div>
+                        <form action="https://send.pageclip.co/FxA0ati0WzwdOMeyW9NyyXtxh0sPbwJK/contact" className="pageclip-form space-y-6 relative z-10" method="post">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Full Name</label>
+                                    <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Name</label>
                                     <input
                                         type="text"
                                         id="name"
                                         name="name"
                                         required
-                                        className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 outline-none transition-all dark:text-white"
-                                        placeholder="John Doe"
+                                        className="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-black/20 border border-slate-200/80 dark:border-white/5 focus:ring-2 focus:ring-[#136dec]/50 focus:border-[#136dec] outline-none transition-all dark:text-white font-medium shadow-sm hover:border-slate-300 dark:hover:border-white/20"
+                                        placeholder="Jane Doe"
                                     />
                                 </div>
                                 <div>
-                                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
+                                    <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Email</label>
                                     <input
                                         type="email"
                                         id="email"
                                         name="email"
                                         required
-                                        className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 outline-none transition-all dark:text-white"
-                                        placeholder="john@example.com"
+                                        className="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-black/20 border border-slate-200/80 dark:border-white/5 focus:ring-2 focus:ring-[#136dec]/50 focus:border-[#136dec] outline-none transition-all dark:text-white font-medium shadow-sm hover:border-slate-300 dark:hover:border-white/20"
+                                        placeholder="jane@example.com"
                                     />
                                 </div>
                             </div>
                             <div>
-                                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Subject</label>
+                                <label htmlFor="subject" className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Subject</label>
                                 <input
                                     type="text"
                                     id="subject"
                                     name="subject"
                                     required
-                                    className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 outline-none transition-all dark:text-white"
-                                    placeholder="Project Inquiry"
+                                    className="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-black/20 border border-slate-200/80 dark:border-white/5 focus:ring-2 focus:ring-[#136dec]/50 focus:border-[#136dec] outline-none transition-all dark:text-white font-medium shadow-sm hover:border-slate-300 dark:hover:border-white/20"
+                                    placeholder="How can I help you?"
                                 />
                             </div>
                             <div>
-                                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Message</label>
+                                <label htmlFor="message" className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Message</label>
                                 <textarea
                                     id="message"
                                     name="message"
                                     rows="4"
                                     required
-                                    className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 outline-none transition-all dark:text-white resize-none"
+                                    className="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-black/20 border border-slate-200/80 dark:border-white/5 focus:ring-2 focus:ring-[#136dec]/50 focus:border-[#136dec] outline-none transition-all dark:text-white font-medium resize-none shadow-sm hover:border-slate-300 dark:hover:border-white/20"
                                     placeholder="Tell me about your project..."
                                 ></textarea>
                             </div>
-                            <button
-                                type="submit"
-                                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-lg transition-all flex items-center justify-center space-x-2 group pageclip-form__submit"
-                            >
-                                <span>Send Message</span>
-                                <FaPaperPlane className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                            </button>
+                            <div className="flex justify-end pt-2">
+                                <button
+                                    type="submit"
+                                    className="group relative inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-white font-bold transition-all overflow-hidden border border-white/10 shadow-[0_0_20px_-5px_rgba(59,130,246,0.3)] pageclip-form__submit"
+                                >
+                                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-[length:200%_auto] animate-text-shimmer group-hover:scale-105 transition-transform duration-500 -z-10"></div>
+                                    <span>Send Message</span>
+                                    <FaPaperPlane className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>

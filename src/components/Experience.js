@@ -39,36 +39,45 @@ const Experience = () => {
     ];
 
     return (
-        <section id="experience" className="py-20 bg-gray-50 dark:bg-gray-800">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-900 dark:text-white">
-                    Professional <span className="text-blue-600 dark:text-blue-400">Experience</span>
-                </h2>
+        <section id="experience" className="py-24 relative z-10 border-t border-slate-200/80 dark:border-white/5 bg-slate-50 dark:bg-[#0d100e]">
+            <div className="max-w-6xl mx-auto px-6 lg:px-8">
+                <div className="text-center md:text-left mb-16">
+                    <h2 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">
+                        Professional <span className="text-slate-400">Experience.</span>
+                    </h2>
+                </div>
 
-                <div className="relative border-l-4 border-blue-600 dark:border-blue-400 ml-4 md:ml-8 space-y-12">
+                <div className="relative border-l border-slate-200 dark:border-white/10 ml-4 md:ml-8 space-y-12 pb-8 flex flex-col">
                     {experiences.map((exp, index) => (
-                        <div key={index} className="relative pl-8 md:pl-12">
+                        <div key={index} className="relative pl-8 md:pl-16">
                             {/* Timeline Dot */}
-                            <div className="absolute -left-3 top-0 bg-blue-600 dark:bg-blue-400 w-6 h-6 rounded-full border-4 border-white dark:border-gray-800"></div>
+                            <div className="absolute -left-2 top-1.5 bg-slate-200 dark:bg-slate-700 w-4 h-4 rounded-full border-[3px] border-slate-50 dark:border-[#0d100e] flex items-center justify-center">
+                                {/* Optional active dot inside */}
+                                {index === 0 && <div className="w-1.5 h-1.5 rounded-full bg-[#136dec]"></div>}
+                            </div>
 
-                            <div className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-                                <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                            <div className="bg-white/60 dark:bg-white/5 backdrop-blur-lg p-8 rounded-3xl border border-slate-200/50 dark:border-white/10 shadow-sm transition-all duration-500 hover:shadow-blue-500/10 hover:border-blue-500/30 group relative overflow-hidden">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 blur-3xl rounded-full -z-10 group-hover:bg-blue-500/20 transition-all duration-500"></div>
+                                <div className="absolute bottom-0 left-0 w-32 h-32 bg-purple-500/5 blur-3xl rounded-full -z-10 group-hover:bg-purple-500/20 transition-all duration-500"></div>
+
+                                <div className="flex flex-col md:flex-row md:items-start justify-between mb-6 gap-4 relative z-10">
                                     <div>
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center">
-                                            <FaBriefcase className="mr-2 text-blue-600 dark:text-blue-400" />
+                                        <h3 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2 mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                                             {exp.title}
                                         </h3>
-                                        <p className="text-lg text-gray-700 dark:text-gray-300 font-medium">{exp.company}</p>
+                                        <p className="text-base text-slate-600 dark:text-slate-400 font-medium">{exp.company}</p>
                                     </div>
-                                    <div className="text-sm text-gray-500 dark:text-gray-400 mt-2 md:mt-0 text-right">
+                                    <div className="text-sm font-bold text-blue-600 dark:text-blue-400 md:text-right bg-blue-50 dark:bg-blue-500/10 px-4 py-2 rounded-xl border border-blue-100 dark:border-blue-500/20 h-fit shadow-sm">
                                         <p>{exp.period}</p>
-                                        <p>{exp.location}</p>
                                     </div>
                                 </div>
 
-                                <ul className="list-disc list-outside ml-5 space-y-2 text-gray-600 dark:text-gray-300">
+                                <ul className="space-y-4 relative z-10">
                                     {exp.details.map((detail, idx) => (
-                                        <li key={idx}>{detail}</li>
+                                        <li key={idx} className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed flex gap-3">
+                                            <span className="text-blue-500 dark:text-blue-400 mt-1 flex-shrink-0 text-lg leading-none">•</span>
+                                            <span className="font-medium">{detail}</span>
+                                        </li>
                                     ))}
                                 </ul>
                             </div>

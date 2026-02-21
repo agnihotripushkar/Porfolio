@@ -1,75 +1,75 @@
 import Link from 'next/link';
-import { FaLinkedin, FaGithub, FaEnvelope, FaMapMarkerAlt, FaLink } from 'react-icons/fa';
+import { FaLinkedin, FaGithub, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="bg-gray-900 text-white py-12">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid md:grid-cols-3 gap-8 mb-8">
-                    {/* Connect With Me */}
+        <footer className="relative z-10 border-t border-slate-200/80 dark:border-white/5 bg-slate-50 dark:bg-[#0d100e]">
+            <div className="max-w-6xl mx-auto px-6 lg:px-8 py-16">
+                <div className="grid md:grid-cols-3 gap-12 mb-16">
+                    {/* Brand / Info */}
                     <div>
-                        <h3 className="text-xl font-bold mb-4 text-blue-400">Connect With Me</h3>
-                        <div className="flex space-x-4">
-                            <a
-                                href="https://www.linkedin.com/in/pushkaragnihotri/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-gray-400 hover:text-white transition-colors"
-                            >
-                                <FaLinkedin size={24} />
-                            </a>
-                            <a
-                                href="https://github.com/agnihotripushkar"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-gray-400 hover:text-white transition-colors"
-                            >
-                                <FaGithub size={24} />
-                            </a>
-                            <a
-                                href="mailto:agnihotripush@gmail.com"
-                                className="text-gray-400 hover:text-white transition-colors"
-                            >
-                                <FaEnvelope size={24} />
-                            </a>
-                            <a
-                                href="https://linktr.ee/push1413"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-gray-400 hover:text-white transition-colors"
-                            >
-                                <FaLink size={24} />
-                            </a>
+                        <Link href="/" className="inline-block text-2xl font-bold tracking-tight text-slate-900 dark:text-white mb-6">
+                            Pushkar<span className="text-slate-400 font-normal">.</span>
+                        </Link>
+                        <p className="text-slate-500 font-medium mb-6 leading-relaxed">
+                            Building highly performant and accessible software applications.
+                        </p>
+                        <div className="flex items-center text-slate-500 font-medium">
+                            <FaMapMarkerAlt className="mr-2" />
+                            <p>Fullerton, CA</p>
                         </div>
                     </div>
 
                     {/* Quick Links */}
                     <div>
-                        <h3 className="text-xl font-bold mb-4 text-blue-400">Quick Links</h3>
-                        <ul className="space-y-2">
-                            <li><Link href="/privacy-policy/chrome-extension" className="text-gray-400 hover:text-white transition-colors">Extension Privacy Policy</Link></li>
-                            <li><Link href="/goal-focus" className="text-gray-400 hover:text-white transition-colors">GoalFocus App</Link></li>
-                            <li><Link href="/f1-companion" className="text-gray-400 hover:text-white transition-colors">F1 Companion App</Link></li>
+                        <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-6">Apps & Extensions</h3>
+                        <ul className="space-y-4">
+                            <li><Link href="/goal-focus" className="text-slate-500 hover:text-[#136dec] dark:text-slate-400 dark:hover:text-blue-400 transition-colors font-medium">GoalFocus App</Link></li>
+                            <li><Link href="/f1-companion" className="text-slate-500 hover:text-[#136dec] dark:text-slate-400 dark:hover:text-blue-400 transition-colors font-medium">F1 Companion App</Link></li>
+                            <li><Link href="/privacy-policy/chrome-extension" className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors font-medium">Extension Privacy Policy</Link></li>
                         </ul>
                     </div>
 
-                    {/* Location */}
+                    {/* Connect With Me */}
                     <div>
-                        <h3 className="text-xl font-bold mb-4 text-blue-400">Location</h3>
-                        <div className="flex items-start text-gray-400">
-                            <FaMapMarkerAlt className="mt-1 mr-2" />
-                            <p>
-                                Fullerton, California<br />
-                                United States
-                            </p>
+                        <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-6">Connect</h3>
+                        <div className="flex space-x-3 text-slate-500 dark:text-slate-400">
+                            <a
+                                href="https://www.linkedin.com/in/pushkaragnihotri/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-10 h-10 rounded-full bg-white dark:bg-[#111613] border border-slate-200/80 dark:border-white/5 flex items-center justify-center hover:bg-slate-100 hover:text-[#0077b5] dark:hover:bg-white/10 dark:hover:text-white transition-all shadow-sm"
+                            >
+                                <FaLinkedin size={18} />
+                            </a>
+                            <a
+                                href="https://github.com/agnihotripushkar"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-10 h-10 rounded-full bg-white dark:bg-[#111613] border border-slate-200/80 dark:border-white/5 flex items-center justify-center hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-white/10 dark:hover:text-white transition-all shadow-sm"
+                            >
+                                <FaGithub size={18} />
+                            </a>
+                            <a
+                                href="mailto:agnihotripush@gmail.com"
+                                className="w-10 h-10 rounded-full bg-white dark:bg-[#111613] border border-slate-200/80 dark:border-white/5 flex items-center justify-center hover:bg-slate-100 hover:text-red-500 dark:hover:bg-white/10 dark:hover:text-white transition-all shadow-sm"
+                            >
+                                <FaEnvelope size={18} />
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <div className="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
-                    <p>&copy; {currentYear} Pushkar Agnihotri. All rights reserved.</p>
+                <div className="border-t border-slate-200/80 dark:border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p className="text-slate-400 dark:text-slate-500 text-sm font-medium">
+                        &copy; {currentYear} Pushkar Agnihotri. All rights reserved.
+                    </p>
+                    <p className="text-slate-400 dark:text-slate-500 text-xs font-semibold uppercase tracking-widest flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        Designed for Scale
+                    </p>
                 </div>
             </div>
         </footer>

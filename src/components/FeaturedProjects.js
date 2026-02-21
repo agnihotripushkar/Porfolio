@@ -7,7 +7,7 @@ const FeaturedProjects = async ({ limit }) => {
 
     const ProjectCard = (props) => <ImportedProjectCard {...props} />;
 
-    const renderProjectSection = (title, projects, borderColor) => {
+    const renderProjectSection = (title, projects) => {
         if (!projects || projects.length === 0) return null;
 
         let displayedProjects = projects;
@@ -16,11 +16,14 @@ const FeaturedProjects = async ({ limit }) => {
         }
 
         return (
-            <div className="mb-16">
-                <h3 className={`text-2xl font-bold mb-8 text-gray-800 dark:text-gray-200 border-l-4 ${borderColor} pl-4`}>
-                    {title}
-                </h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="mb-20">
+                <div className="flex items-center gap-4 mb-8">
+                    <h3 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+                        {title}
+                    </h3>
+                    <div className="h-[1px] flex-grow bg-slate-200/80 dark:bg-white/5"></div>
+                </div>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {displayedProjects.map((project) => (
                         <ProjectCard key={project.id} project={project} />
                     ))}
@@ -30,20 +33,25 @@ const FeaturedProjects = async ({ limit }) => {
     };
 
     return (
-        <section id="projects" className="py-20 bg-white dark:bg-gray-900">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-900 dark:text-white">
-                    Featured <span className="text-blue-600 dark:text-blue-400">Projects</span>
-                </h2>
+        <section id="projects" className="py-24 relative z-10 border-t border-slate-200/80 dark:border-white/5 bg-transparent">
+            <div className="max-w-6xl mx-auto px-6 lg:px-8">
+                <div className="text-center md:text-left mb-16">
+                    <h2 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">
+                        Selected <span className="text-slate-400">Work.</span>
+                    </h2>
+                    <p className="text-lg text-slate-500 font-medium max-w-2xl">
+                        A collection of applications, extensions, and technical projects I&apos;ve built to solve real-world problems.
+                    </p>
+                </div>
 
-                {renderProjectSection('Published Apps & Extensions', categories.published_apps, 'border-purple-500')}
-                {renderProjectSection('Personal Projects', categories.personal_projects, 'border-blue-500')}
-                {renderProjectSection('Contract Work', categories.contract_work, 'border-green-500')}
+                {renderProjectSection('Published Apps & Extensions', categories.published_apps)}
+                {renderProjectSection('Personal Projects', categories.personal_projects)}
+                {renderProjectSection('Contract Work', categories.contract_work)}
 
-                <div className="mt-16 text-center">
+                <div className="mt-16 flex justify-center md:justify-start">
                     <Link
                         href="/projects"
-                        className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-white bg-blue-600 hover:bg-blue-700 md:text-lg transition-colors shadow-lg hover:shadow-xl"
+                        className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-200 text-white dark:text-[#090b0a] text-sm font-semibold transition-all shadow-sm"
                     >
                         View All Projects
                     </Link>
