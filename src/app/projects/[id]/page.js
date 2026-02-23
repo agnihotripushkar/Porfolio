@@ -2,6 +2,7 @@ import { supabase } from '@/lib/supabase';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaGithub, FaExternalLinkAlt, FaAndroid, FaChrome, FaArrowLeft, FaGlobe } from 'react-icons/fa';
+import { SiReact, SiKotlin } from 'react-icons/si';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -69,6 +70,8 @@ export default async function ProjectDetails({ params }) {
                                     <span className={`px-3 py-1 rounded-full text-xs font-semibold 
                                         ${project.project_type === 'App' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
                                             project.project_type === 'Extension' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' :
+                                            (project.project_type === 'React Native App' || project.project_type === 'React Native') ? 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200' :
+                                            (project.project_type === 'KMP' || project.project_type === 'Kotlin Multiplatform') ? 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200' :
                                                 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'}`}>
                                         {project.project_type}
                                     </span>
@@ -101,7 +104,9 @@ export default async function ProjectDetails({ params }) {
                                         className="p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-lg"
                                         title="View Live Version"
                                     >
-                                        {project.project_type === 'App' ? <FaAndroid size={24} /> :
+                                        {(project.project_type === 'App') ? <FaAndroid size={24} /> :
+                                            (project.project_type === 'React Native App' || project.project_type === 'React Native') ? <SiReact size={24} /> :
+                                            (project.project_type === 'KMP' || project.project_type === 'Kotlin Multiplatform') ? <SiKotlin size={24} /> :
                                             project.project_type === 'Extension' ? <FaChrome size={24} /> :
                                                 <FaExternalLinkAlt size={20} />}
                                     </a>

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { FaGithub, FaExternalLinkAlt, FaAndroid, FaGlobe, FaArrowRight, FaChrome } from 'react-icons/fa';
+import { SiReact, SiKotlin } from 'react-icons/si';
 
 const ProjectCard = ({ project }) => {
     const isFreelance = project.category === 'contract_work';
@@ -29,6 +30,8 @@ const ProjectCard = ({ project }) => {
                     <div className="p-3 bg-white dark:bg-white/10 rounded-xl border border-slate-100 dark:border-white/10 shadow-sm">
                         {project.project_type === 'Github' && <FaGithub className="text-xl text-purple-600 dark:text-purple-400" />}
                         {project.project_type === 'App' && <FaAndroid className="text-xl text-green-500 dark:text-green-400" />}
+                        {(project.project_type === 'React Native App' || project.project_type === 'React Native') && <SiReact className="text-xl text-cyan-500 dark:text-cyan-400" />}
+                        {(project.project_type === 'KMP' || project.project_type === 'Kotlin Multiplatform') && <SiKotlin className="text-xl text-purple-600 dark:text-purple-400" />}
                         {(project.project_type === 'Web' || project.project_type === 'Web App') && <FaGlobe className="text-xl text-blue-500 dark:text-blue-400" />}
                         {project.project_type === 'Extension' && <FaChrome className="text-xl text-yellow-500 dark:text-yellow-400" />}
                     </div>
