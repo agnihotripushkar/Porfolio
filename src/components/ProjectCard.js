@@ -1,9 +1,12 @@
+"use client";
 import Link from 'next/link';
 import { FaGithub, FaExternalLinkAlt, FaAndroid, FaGlobe, FaArrowRight, FaChrome } from 'react-icons/fa';
 import { SiReact, SiKotlin } from 'react-icons/si';
+import { useWebHaptics } from 'web-haptics/react';
 
 const ProjectCard = ({ project }) => {
     const isFreelance = project.category === 'contract_work';
+    const { trigger } = useWebHaptics();
 
     return (
         <div className="bg-white/60 dark:bg-white/5 backdrop-blur-lg rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-500 flex flex-col h-full relative group border border-slate-200/50 dark:border-white/10 hover:border-purple-500/30 dark:hover:border-purple-500/30">
@@ -43,6 +46,7 @@ const ProjectCard = ({ project }) => {
                 <div className="mt-auto pt-6 border-t border-slate-100/50 dark:border-white/5 flex gap-4 items-center">
                     <Link
                         href={`/projects/${project.id}`}
+                        onClick={() => trigger('selection')}
                         className="inline-flex items-center text-sm font-semibold text-slate-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
                     >
                         View Details <FaArrowRight className="ml-1.5 text-xs text-slate-400 group-hover:text-purple-500 transition-colors" />
@@ -53,6 +57,7 @@ const ProjectCard = ({ project }) => {
                             href={project.live_link}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={() => trigger('selection')}
                             className="inline-flex justify-center items-center w-8 h-8 rounded-full bg-white dark:bg-white/10 shadow-sm border border-slate-100 dark:border-white/5 hover:bg-slate-50 hover:border-purple-500/30 dark:hover:bg-white/20 text-slate-500 hover:text-purple-600 dark:text-slate-400 dark:hover:text-purple-400 transition-all ml-auto"
                         >
                             <FaExternalLinkAlt className="text-xs" />
@@ -63,6 +68,7 @@ const ProjectCard = ({ project }) => {
                             href={project.github_link}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={() => trigger('selection')}
                             className="inline-flex justify-center items-center w-8 h-8 rounded-full bg-white dark:bg-white/10 shadow-sm border border-slate-100 dark:border-white/5 hover:bg-slate-50 hover:border-purple-500/30 dark:hover:bg-white/20 text-slate-500 hover:text-purple-600 dark:text-slate-400 dark:hover:text-purple-400 transition-all ml-auto"
                         >
                             <FaGithub className="text-sm" />

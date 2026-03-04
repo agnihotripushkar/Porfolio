@@ -2,10 +2,12 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { FaBars, FaTimes } from 'react-icons/fa';
+import { useWebHaptics } from 'web-haptics/react';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const { trigger } = useWebHaptics();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -36,6 +38,7 @@ const Navbar = () => {
                             <Link
                                 key={link.name}
                                 href={link.href}
+                                onClick={() => trigger('selection')}
                                 className="text-sm font-semibold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors"
                             >
                                 {link.name}
@@ -62,7 +65,10 @@ const Navbar = () => {
                         <Link
                             key={link.name}
                             href={link.href}
-                            onClick={() => setIsOpen(false)}
+                            onClick={() => {
+                                setIsOpen(false);
+                                trigger('selection');
+                            }}
                             className="block text-lg font-bold tracking-tight text-slate-700 hover:text-[#136dec] dark:text-slate-300 dark:hover:text-white transition-colors"
                         >
                             {link.name}

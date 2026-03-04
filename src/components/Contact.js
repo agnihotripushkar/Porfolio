@@ -1,7 +1,10 @@
 "use client";
 import { FaPaperPlane, FaEnvelope, FaMapMarkerAlt, FaLinkedin, FaGithub } from 'react-icons/fa';
+import { useWebHaptics } from 'web-haptics/react';
 
 const Contact = () => {
+    const { trigger } = useWebHaptics();
+
     return (
         <section id="contact" className="py-24 relative z-10 bg-transparent">
             <div className="max-w-6xl mx-auto px-6 lg:px-8">
@@ -98,6 +101,7 @@ const Contact = () => {
                             <div className="flex justify-end pt-2">
                                 <button
                                     type="submit"
+                                    onClick={() => trigger('success')}
                                     className="group relative inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-white font-bold transition-all overflow-hidden border border-white/10 shadow-[0_0_20px_-5px_rgba(59,130,246,0.3)] pageclip-form__submit"
                                 >
                                     <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-[length:200%_auto] animate-text-shimmer group-hover:scale-105 transition-transform duration-500 -z-10"></div>
