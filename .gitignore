@@ -42,3 +42,11 @@ next-env.d.ts
 
 # IDEs
 .idea/
+
+# AI agents / skills
+.agent/
+.agents/
+.claude/
+.junie/
+.kiro/
+skills-lock.json
