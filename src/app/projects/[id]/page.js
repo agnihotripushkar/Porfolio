@@ -1,8 +1,8 @@
 import { supabase } from '@/lib/supabase';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaGithub, FaExternalLinkAlt, FaAndroid, FaChrome, FaArrowLeft, FaGlobe } from 'react-icons/fa';
-import { SiReact, SiKotlin } from 'react-icons/si';
+import { FaGithub, FaExternalLinkAlt, FaAndroid, FaChrome, FaArrowLeft, FaGlobe, FaApple } from 'react-icons/fa';
+import { SiReact, SiKotlin, SiFlutter } from 'react-icons/si';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -72,6 +72,8 @@ export default async function ProjectDetails({ params }) {
                                             project.project_type === 'Extension' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' :
                                             (project.project_type === 'React Native App' || project.project_type === 'React Native') ? 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200' :
                                             (project.project_type === 'KMP' || project.project_type === 'Kotlin Multiplatform') ? 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200' :
+                                            (project.project_type === 'Flutter' || project.project_type === 'Flutter App') ? 'bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-200' :
+                                            (project.project_type === 'iOS' || project.project_type === 'iOS App') ? 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200' :
                                                 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'}`}>
                                         {project.project_type}
                                     </span>
@@ -107,6 +109,8 @@ export default async function ProjectDetails({ params }) {
                                         {(project.project_type === 'App') ? <FaAndroid size={24} /> :
                                             (project.project_type === 'React Native App' || project.project_type === 'React Native') ? <SiReact size={24} /> :
                                             (project.project_type === 'KMP' || project.project_type === 'Kotlin Multiplatform') ? <SiKotlin size={24} /> :
+                                            (project.project_type === 'Flutter' || project.project_type === 'Flutter App') ? <SiFlutter size={24} /> :
+                                            (project.project_type === 'iOS' || project.project_type === 'iOS App') ? <FaApple size={24} /> :
                                             project.project_type === 'Extension' ? <FaChrome size={24} /> :
                                                 <FaExternalLinkAlt size={20} />}
                                     </a>

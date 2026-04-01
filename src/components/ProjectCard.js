@@ -1,7 +1,7 @@
 "use client";
 import Link from 'next/link';
-import { FaGithub, FaExternalLinkAlt, FaAndroid, FaGlobe, FaArrowRight, FaChrome } from 'react-icons/fa';
-import { SiReact, SiKotlin } from 'react-icons/si';
+import { FaGithub, FaExternalLinkAlt, FaAndroid, FaGlobe, FaArrowRight, FaChrome, FaApple } from 'react-icons/fa';
+import { SiReact, SiKotlin, SiFlutter } from 'react-icons/si';
 import { useWebHaptics } from 'web-haptics/react';
 
 const ProjectCard = ({ project }) => {
@@ -35,6 +35,8 @@ const ProjectCard = ({ project }) => {
                         {project.project_type === 'App' && <FaAndroid className="text-xl text-green-500 dark:text-green-400" />}
                         {(project.project_type === 'React Native App' || project.project_type === 'React Native') && <SiReact className="text-xl text-cyan-500 dark:text-cyan-400" />}
                         {(project.project_type === 'KMP' || project.project_type === 'Kotlin Multiplatform') && <SiKotlin className="text-xl text-purple-600 dark:text-purple-400" />}
+                        {(project.project_type === 'Flutter' || project.project_type === 'Flutter App') && <SiFlutter className="text-xl text-sky-500 dark:text-sky-400" />}
+                        {(project.project_type === 'iOS' || project.project_type === 'iOS App') && <FaApple className="text-xl text-slate-800 dark:text-slate-200" />}
                         {(project.project_type === 'Web' || project.project_type === 'Web App') && <FaGlobe className="text-xl text-blue-500 dark:text-blue-400" />}
                         {project.project_type === 'Extension' && <FaChrome className="text-xl text-yellow-500 dark:text-yellow-400" />}
                     </div>
