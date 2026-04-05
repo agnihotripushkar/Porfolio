@@ -1,0 +1,203 @@
+{
+  "new": [
+    {
+      "title": "AudioMemo",
+      "description": "AudioMemo — GitHub repository",
+      "long_description": "# AudioMemo\n\nAudioMemo is a native Android application that records audio, transcribes it using the OpenAI Whisper API, and provides AI-powered summaries. Built with modern Android development practices, it features a sleek intuitive UI and robust background processing capabilities.\n\n## Features\n\n- **Audio Recording:** High-quality voice recording with a real-time audio wavelength visualization UI.\n- **Smart Chunking:** Automatically splits long audio recordings into manageable 30-second chunks and saves them to local storage.\n- **AI Transcription:** Integrates with OpenAI's `whisper-1` model to provide accurate transcriptions of recorded audio.\n- **Intelligent Summarization:** Uses OpenAI's `gpt-4o-mini` model to generate concise summaries from the transcriptions.\n- **Local Storage:** Securely stores audio chunks and transcriptions locally using Room Database.\n- **Background Processing:** Ensures seamless transcription and summarization tasks run efficiently in the background using WorkManager.\n\n## Tech Stack\n\nThe app is built using the latest Android development technologies and architecture patterns:\n\n- **Language:** Kotlin\n- **UI Framework:** Jetpack Compose (Material 3)\n- **Architecture:** MVVM (Model-View-ViewModel)\n- **Concurrency:** Coroutines & Flow\n- **Dependency Injection:** Dagger Hilt\n- **Networking:** Retrofit2 & OkHttp\n- **JSON Serialization:** Kotlinx Serialization\n- **Local Database:** Room\n- **Background Work:** WorkManager\n\n## Prerequisites\n\n- **Android Studio:** Latest version recommended (Giraffe or newer).\n- **Minimum SDK:** API 24 (Android 7.0)\n- **Target SDK:** API 34 (Android 14)\n- **OpenAI API Key:** Required for transcription and summarization features.\n\n## Getting Started\n\n1. **Clone the repository:**\n   ```bash\n   git clone <repository-url>\n   ```\n\n2. **Set up the OpenAI API Key:**\n   To securely provide your API key to the application without checking it into version control, add it to your `local.properties` file:\n\n   Open the `local.properties` file in the project's root directory (create it if it doesn't exist) and add the following line:\n   ```properties\n   OPENAI_API_KEY=your_openai_api_key_here\n   ```\n\n3. **Build the project:**\n   Sync the project with Gradle files in Android Studio to download all required dependencies.\n\n4. **Run the app:**\n   Select an emulator or a physical device and click the Run button in Android Studio.\n\n## Permissions\n\nThe app requires the following permissions to function correctly:\n\n| Permission | Purpose |\n|---|---|\n| `RECORD_AUDIO` | Capture voice recordings (runtime — requested before recording starts) |\n| `INTERNET` | Communicate with the OpenAI API |\n| `FOREGROUND_SERVICE` | Keep the recording service alive in the background |\n| `FOREGROUND_SERVICE_MICROPHONE` | Android 14 foreground service type for microphone access |\n| `POST_NOTIFICATIONS` | Show the persistent recording notification (API 33+) |\n| `READ_PHONE_STATE` | Detect incoming / active calls to pause recording |\n| `MODIFY_AUDIO_SETTINGS` | Start Bluetooth SCO for headset microphone support |\n| `BLUETOOTH` | Bluetooth headset detection (API ≤ 30) |\n\n## Interruption Handling\n\nAudioMemo is built to survive all common audio interruptions during a recording session. The table below describes every scenario, where it is handled, and what happens.\n\n| Scenario | Status | Mechanism | Behaviour |\n|---|---|---|---|\n| **Process death** | ✅ Handled | `ChunkFinalizationWorker` (WorkManager) | A 15-second delayed WorkManager job is enqueued when recording starts. If the process dies before the user stops cleanly, the worker fires, marks all in-flight chunks `FAILED`, and re-queues `TranscriptRetryWorker` to retry uploads. |\n| **Network failure during upload** | ✅ Handled | `WhisperUploadWorker` + `TranscriptRetryWorker` | `WhisperUploadWorker` uses WorkManager's built-in retry with exponential back-off. `TranscriptRetryWorker` can also re-enqueue failed chunks on demand. |\n| **Long recordings** | ✅ Handled | 30-sec",
+      "category": "published_apps",
+      "project_type": "App",
+      "github_link": "https://github.com/agnihotripushkar/AudioMemo",
+      "live_link": null,
+      "tech_stack": [
+        "Kotlin"
+      ],
+      "features": [],
+      "display_order": 99,
+      "image_url": null
+    },
+    {
+      "title": "Claude-Skills-playstore-screenshots",
+      "description": "Claude Skills",
+      "long_description": "# App Store & Play Store Screenshots\n\nA Claude Code skill that generates high-converting screenshots for both **Google Play Store** (Android) and **Apple App Store** (iOS). It analyzes your app's codebase, identifies core benefits, and creates professional screenshot images using AI.\n\nThe skill auto-detects your platform from the project structure and runs the appropriate workflow.\n\n## What It Does\n\n1. **Platform Detection** — Detects Android, iOS, or cross-platform (React Native / Flutter) from your codebase\n2. **Benefit Discovery** — Analyzes your app to identify the 3–5 core benefits that drive downloads\n3. **Screenshot Pairing** — Reviews your device screenshots, rates them, and pairs each with the best benefit\n4. **Generation** — Creates polished screenshots using a two-stage process: deterministic scaffolding + AI enhancement (Nano Banana Pro via Gemini MCP)\n5. **Device Variants** — Android: foldable cover/inner screens. iOS: iPad, iPhone SE, multiple size slots\n6. **Showcase** — Generates a side-by-side preview image of the full set\n\n## Installation\n\n### 1. Add the skill to Claude Code\n\n```bash\nclaude install-skill github.com/agnihotripushkar/claude-skill-aso-playstore-screenshots\n```\n\n### 2. Install Python dependencies\n\n```bash\npip install Pillow\n```\n\n### 3. Font setup\n\n**Android** uses Google Sans Bold (falls back to Roboto Black → Helvetica):\n- Download from [Google Fonts](https://fonts.google.com/specimen/Google+Sans) and copy to `/Library/Fonts/`\n\n**iOS** uses SF Pro Display Black (falls back to Helvetica):\n- Download from [Apple's developer fonts page](https://developer.apple.com/fonts/) and copy to `/Library/Fonts/SF-Pro-Display-Black.otf`\n\n### 4. Generate device frame assets\n\nRun once to create the device frame PNG templates you need:\n\n```bash\n# Android\npython3 generate_frame.py --type phone\npython3 generate_frame.py --type foldable_cover   # optional\npython3 generate_frame.py --type foldable_inner   # optional\n\n# iOS\npython3 generate_frame.py --type iphone           # iPhone with Dynamic Island\npython3 generate_frame.py --type ipad             # iPad Pro (if targeting iPad)\npython3 generate_frame.py --type iphone_se        # iPhone SE with home button (optional)\n```\n\n### 5. Set up Gemini MCP (for AI enhancement)\n\nThe generation phase requires [@houtini/gemini-mcp](https://www.npmjs.com/package/@houtini/gemini-mcp) configured as an MCP server in Claude Code:\n\n```bash\nnpm install -g @houtini/gemini-mcp\n```\n\nThen add it to your Claude Code MCP config (`~/.claude/settings.json` or project `.mcp.json`).\n\n## Usage\n\nFrom within your app's project directory, run:\n\n```\n/aso-playstore-screenshots\n```\n\nThe skill detects your platform automatically and guides you through each phase interactively. Progress is saved to Claude Code's memory system so you can resume across conversations.\n\n## How It Works\n\n### Scaffold → Enhance Pipeline\n\nRather than generating screenshots from scratch (which produces inconsistent results), the skill uses a two-stage approach:\n\n1. **`compose.py` / `ios_compose.py`** creates a deterministic scaffold with exact text positioning, a device frame, and your screenshot composited inside the screen cutout\n2. **Nano Banana Pro** (via Gemini MCP) enhances the scaffold — adding a photorealistic device mockup, breakout elements, and visual polish\n\nThis ensures consistent layout across all screenshots while letting AI handle the creative enhancement.\n\n---\n\n## Android (Google Play Store)\n\n### Device Types\n\n| `--device-type` | Canvas Size | Play Console Slot |\n|----------------|------------|-------------------|\n| `phone` (default) | 1080×1920 px | Standard phone |\n| `foldable_cover` | 1080×2092 px | Foldable cover screen |\n| `foldable_inner` | 2208×1840 px | Foldable inner (unfolded) |\n\n### Capturing Screenshots\n\n```bash\n# Android Studio emulator\nadb exec-out screencap -p > screenshot.png\n\n# Clean status bar (demo mode)\nadb shell settings put global sysui_demo_allowed 1\nadb shell am broadcast -a com.android.s",
+      "category": "personal_projects",
+      "project_type": "Github",
+      "github_link": "https://github.com/agnihotripushkar/Claude-Skills-playstore-screenshots",
+      "live_link": null,
+      "tech_stack": [
+        "Python",
+        "Claude-skills"
+      ],
+      "features": [],
+      "display_order": 99,
+      "image_url": null
+    },
+    {
+      "title": "leetcode-kt",
+      "description": "leetcode questions solved in kotlin",
+      "long_description": "A collection of LeetCode questions to ace the coding interview! - Created using [LeetHub v2](https://github.com/arunbhardwaj/LeetHub-2.0)\n<!---LeetCode Topics Start-->\n# LeetCode Topics\n## Hash Table\n|  |\n| ------- |\n| [0001-two-sum](https://github.com/Push1413/leetcode-kt/tree/master/0001-two-sum) |\n| [0003-longest-substring-without-repeating-characters](https://github.com/Push1413/leetcode-kt/tree/master/0003-longest-substring-without-repeating-characters) |\n| [0041-first-missing-positive](https://github.com/agnihotripushkar/leetcode-kt/tree/master/0041-first-missing-positive) |\n| [0073-set-matrix-zeroes](https://github.com/Push1413/leetcode-kt/tree/master/0073-set-matrix-zeroes) |\n| [0128-longest-consecutive-sequence](https://github.com/Push1413/leetcode-kt/tree/master/0128-longest-consecutive-sequence) |\n| [0141-linked-list-cycle](https://github.com/Push1413/leetcode-kt/tree/master/0141-linked-list-cycle) |\n| [0169-majority-element](https://github.com/Push1413/leetcode-kt/tree/master/0169-majority-element) |\n| [0219-contains-duplicate-ii](https://github.com/Push1413/leetcode-kt/tree/master/0219-contains-duplicate-ii) |\n| [0229-majority-element-ii](https://github.com/Push1413/leetcode-kt/tree/master/0229-majority-element-ii) |\n| [0242-valid-anagram](https://github.com/Push1413/leetcode-kt/tree/master/0242-valid-anagram) |\n| [0347-top-k-frequent-elements](https://github.com/Push1413/leetcode-kt/tree/master/0347-top-k-frequent-elements) |\n| [0349-intersection-of-two-arrays](https://github.com/agnihotripushkar/leetcode-kt/tree/master/0349-intersection-of-two-arrays) |\n| [0383-ransom-note](https://github.com/Push1413/leetcode-kt/tree/master/0383-ransom-note) |\n| [0500-keyboard-row](https://github.com/Push1413/leetcode-kt/tree/master/0500-keyboard-row) |\n| [0560-subarray-sum-equals-k](https://github.com/Push1413/leetcode-kt/tree/master/0560-subarray-sum-equals-k) |\n| [0990-verifying-an-alien-dictionary](https://github.com/Push1413/leetcode-kt/tree/master/0990-verifying-an-alien-dictionary) |\n| [2996-smallest-missing-integer-greater-than-sequential-prefix-sum](https://github.com/agnihotripushkar/leetcode-kt/tree/master/2996-smallest-missing-integer-greater-than-sequential-prefix-sum) |\n| [3242-count-elements-with-maximum-frequency](https://github.com/Push1413/leetcode-kt/tree/master/3242-count-elements-with-maximum-frequency) |\n## String\n|  |\n| ------- |\n| [0003-longest-substring-without-repeating-characters](https://github.com/Push1413/leetcode-kt/tree/master/0003-longest-substring-without-repeating-characters) |\n| [0014-longest-common-prefix](https://github.com/Push1413/leetcode-kt/tree/master/0014-longest-common-prefix) |\n| [0020-valid-parentheses](https://github.com/Push1413/leetcode-kt/tree/master/0020-valid-parentheses) |\n| [0022-generate-parentheses](https://github.com/agnihotripushkar/leetcode-kt/tree/master/0022-generate-parentheses) |\n| [0028-find-the-index-of-the-first-occurrence-in-a-string](https://github.com/Push1413/leetcode-kt/tree/master/0028-find-the-index-of-the-first-occurrence-in-a-string) |\n| [0072-edit-distance](https://github.com/agnihotripushkar/leetcode-kt/tree/master/0072-edit-distance) |\n| [0079-word-search](https://github.com/Push1413/leetcode-kt/tree/master/0079-word-search) |\n| [0125-valid-palindrome](https://github.com/Push1413/leetcode-kt/tree/master/0125-valid-palindrome) |\n| [0242-valid-anagram](https://github.com/Push1413/leetcode-kt/tree/master/0242-valid-anagram) |\n| [0257-binary-tree-paths](https://github.com/Push1413/leetcode-kt/tree/master/0257-binary-tree-paths) |\n| [0383-ransom-note](https://github.com/Push1413/leetcode-kt/tree/master/0383-ransom-note) |\n| [0500-keyboard-row](https://github.com/Push1413/leetcode-kt/tree/master/0500-keyboard-row) |\n| [0680-valid-palindrome-ii](https://github.com/Push1413/leetcode-kt/tree/master/0680-valid-palindrome-ii) |\n| [0990-verifying-an-alien-dictionary](https://github.com/Push1413/leetcode-kt/tree/master/0990-verifying-an-alien-dictionary) |\n| [189",
+      "category": "published_apps",
+      "project_type": "App",
+      "github_link": "https://github.com/agnihotripushkar/leetcode-kt",
+      "live_link": null,
+      "tech_stack": [
+        "Kotlin"
+      ],
+      "features": [],
+      "display_order": 99,
+      "image_url": null
+    }
+  ],
+  "existing": [
+    {
+      "title": "AdventOfCode",
+      "description": "Advent of Code solutions in Java, Kotlin",
+      "long_description": "# Advent of Code Solutions\n\nThis repository contains my solutions for the Advent of Code challenges.\n\n## Project Structure\n\nThe project is organized by year, with source code located in the `src` directory and input/test data in the root directories.\n\n### Source Code (`src/org/devpush/com/`)\n\n- **2023** (`aoc2023`): Solutions written in **Kotlin**.\n- **2024** (`aoc2024`): Solutions written in **Java**.\n- **2025** (`aoc2025`): Solutions written in **Kotlin**.\n\n### Input and Test Data\n\nThe input and test files are located in the following directories at the project root:\n\n- `aoc2023/`\n- `aoc2024/`\n- `aoc2025/`\n\nEach year directory contains subdirectories for inputs and tests (e.g., `input_a`, `input_b`, `test_a`, `test_b`).\n\n## Usage\n\n1. Open the project in **IntelliJ IDEA**.\n2. Navigate to the specific day's solution in the `src` directory.\n3. Run the `main` method or the respective runnable file for the day.\n\n## Resources\n\n- [Advent of Code Website](https://adventofcode.com/)\n",
+      "category": "published_apps",
+      "project_type": "App",
+      "github_link": "https://github.com/agnihotripushkar/AdventOfCode",
+      "live_link": "https://adventofcode.com/",
+      "tech_stack": [
+        "Java",
+        "Kotlin",
+        "Aoc-2025-in-kotlin"
+      ],
+      "features": [],
+      "display_order": 99,
+      "image_url": null
+    },
+    {
+      "title": "AnimeApp",
+      "description": "Jetpack Compose App with MVVM architecture.  Lib used - Koin, Ktor, Paging 3, Coil, DataStore, compose-navigation, SplashScreen",
+      "long_description": "# AnimeApp\n\nA modern Android application for browsing, searching, and tracking anime, built with Jetpack Compose and Clean Architecture.\n\n## Tech Stack\n\n```json\n[\n  \"Kotlin\",\n  \"Jetpack Compose\",\n  \"Material 3\",\n  \"MVVM\",\n  \"Clean Architecture\",\n  \"Multi-module\",\n  \"Koin\",\n  \"Ktor\",\n  \"Room\",\n  \"Coil\",\n  \"Coroutines & Flow\",\n  \"Compose Navigation\",\n  \"DataStore\",\n  \"Paging 3\",\n  \"Biometric Auth\"\n]\n```\n\n## Features\n\n```json\n[\n  \"Home Feed: Browse anime with Compact and Expanded views\",\n  \"Trending: Discover what's currently popular in the anime world\",\n  \"Detailed Insights: View comprehensive information about anime series\",\n  \"Favorites Management: Save and manage your favorite anime\",\n  \"Authentication: Secure login and signup functionality\",\n  \"Biometric Security: Protect your account with biometric authentication\",\n  \"Onboarding: Smooth onboarding experience for new users\"\n]\n```\n\n## Overview\n\nAnimeApp is a comprehensive Android application designed for anime enthusiasts. It provides a seamless experience for discovering new series, keeping up with trending titles, and managing a personal list of favorites.\n\nBuilt with modern Android development practices, the app leverages Jetpack Compose for a declarative UI, ensuring a responsive and visually appealing interface. The architecture follows Clean Architecture principles with MVVM pattern, promoting separation of concerns and testability.\n\nThe project is modularized by features, including authentication, home, details, trending, favorites, and settings, making it scalable and maintainable. It utilizes Koin for dependency injection, Ktor for efficient network operations, and Room for local data persistence.\n\nKey functionalities include user authentication with biometric security options, a detailed home feed with various view modes, and an intuitive onboarding process. The app aims to provide a high-quality example of modern Android development techniques.\n",
+      "category": "published_apps",
+      "project_type": "App",
+      "github_link": "https://github.com/agnihotripushkar/AnimeApp",
+      "live_link": null,
+      "tech_stack": [
+        "Kotlin",
+        "Ktor",
+        "Koin",
+        "Coil",
+        "MVVM",
+        "Jetpack Compose",
+        "Paging 3",
+        "DataStore"
+      ],
+      "features": [],
+      "display_order": 99,
+      "image_url": null
+    },
+    {
+      "title": "BuilderPost",
+      "description": "BuilderPost — GitHub repository",
+      "long_description": "# BuilderPost AI\n\nA Flutter mobile app that transforms your technical project descriptions into engaging, platform-specific social media posts using Google Gemini AI.\n\nBuilt for developers who want to share their work on Peerlist, LinkedIn, and X (Twitter) — without spending time writing posts.\n\n---\n\n## Features\n\n- **AI-powered post generation** — Describe your project, upload screenshots, and get 3 ready-to-publish post variations\n- **Platform-specific tone** — Tailored output for Peerlist (proof of work), LinkedIn (career impact), and X (build-in-public threads)\n- **Tone control** — Choose Witty, Professional, Academic, or Casual\n- **Resume / PDF parser** — Upload your resume and the AI extracts your projects to pre-fill the composer\n- **GitHub README import** — Paste a GitHub URL and the app fetches your README as context\n- **Multimodal input** — Attach up to 3 screenshots for richer, UI-aware post copy\n- **Draft management** — Save, edit, and revisit project drafts locally\n- **Generation history** — Browse and re-share past generations\n- **Privacy-first** — No backend, no data collection; your API key is stored encrypted on-device only\n\n---\n\n## Tech Stack\n\n| Layer | Technology |\n|---|---|\n| Framework | Flutter 3.7+ / Dart 3.7+ |\n| AI | Google Gemini 2.5 Flash (`google_generative_ai`) |\n| State management | Riverpod 2.x |\n| Secure storage | `flutter_secure_storage` (Android Keystore / iOS Keychain) |\n| Local persistence | `shared_preferences` |\n| PDF processing | Syncfusion Flutter PDF |\n| File & image picking | `image_picker`, `file_picker` |\n| Sharing | `share_plus` |\n| Typography | Google Fonts (Inter, JetBrains Mono) |\n\n---\n\n## Prerequisites\n\n- [Flutter SDK](https://docs.flutter.dev/get-started/install) 3.7.0 or later\n- Android SDK (for Android) or Xcode 14+ (for iOS)\n- A **Google Gemini API key** — get one free at [aistudio.google.com](https://aistudio.google.com)\n\n---\n\n## Getting Started\n\n### 1. Clone the repository\n\n```bash\ngit clone https://github.com/<your-username>/BuilderPost.git\ncd BuilderPost\n```\n\n### 2. Install dependencies\n\n```bash\nflutter pub get\n```\n\n### 3. Run the app\n\n```bash\n# Android\nflutter run\n\n# iOS\nflutter run -d ios\n```\n\n> No `.env` file or build-time secrets needed. The app prompts you for your Gemini API key on first launch and stores it securely on your device.\n\n---\n\n## API Key Setup\n\n1. Go to [https://aistudio.google.com](https://aistudio.google.com) and create a free API key\n2. Launch the app — the onboarding screen will prompt you to enter it\n3. The key is stored using `flutter_secure_storage` (encrypted via Android Keystore / iOS Keychain)\n4. You can update or clear the key anytime from the in-app Settings screen\n\n**The API key is never hardcoded, never logged, and never leaves your device.**\n\n---\n\n## Project Structure\n\n```\nlib/\n├── main.dart                        # App entry point\n├── models/\n│   ├── project_draft.dart           # Draft data model\n│   ├── generated_post.dart          # AI output model\n│   ├── extracted_project.dart       # Resume parser output\n│   └── history_entry.dart           # Generation history entry\n├── services/\n│   ├── gemini_service.dart          # Gemini API integration\n│   ├── github_service.dart          # GitHub README fetcher\n│   └── key_storage_service.dart     # Secure API key storage\n├── providers/\n│   ├── composer_provider.dart       # Post generation state\n│   ├── drafts_provider.dart         # Draft persistence\n│   └── history_provider.dart        # History persistence\n├── screens/\n│   ├── splash_screen.dart\n│   ├── onboarding_screen.dart\n│   ├── api_key_screen.dart\n│   ├── composer_screen.dart         # Main composer UI\n│   ├── preview_screen.dart          # Generated posts display\n│   ├── project_hub_screen.dart      # Draft list / home\n│   ├── history_screen.dart\n│   └── resume_projects_screen.dart  # PDF resume parser UI\n├── widgets/\n│   ├── platform_chips.dart          # Peerlist / LinkedIn / X selector\n│   ├── tone_toggles.dart\n│   ├── image_uplo",
+      "category": "published_apps",
+      "project_type": "Flutter App",
+      "github_link": "https://github.com/agnihotripushkar/BuilderPost",
+      "live_link": null,
+      "tech_stack": [
+        "Dart",
+        "Ruby",
+        "Swift",
+        "Kotlin",
+        "Objective-C"
+      ],
+      "features": [],
+      "display_order": 99,
+      "image_url": null
+    },
+    {
+      "title": "F1-Tracker",
+      "description": "My First Production level ios App",
+      "long_description": "My First Production level ios App",
+      "category": "personal_projects",
+      "project_type": "Github",
+      "github_link": "https://github.com/agnihotripushkar/F1-Tracker",
+      "live_link": null,
+      "tech_stack": [
+        "Swift",
+        "Ios",
+        "Ios-swift"
+      ],
+      "features": [],
+      "display_order": 99,
+      "image_url": null
+    },
+    {
+      "title": "GameKMP",
+      "description": "Kotlin-Multiplatform with compose- multiplatform",
+      "long_description": "# GameKMP\n\n## 1. Short Description\nA comprehensive cross-platform mobile application built with Kotlin Multiplatform and Compose Multiplatform for browsing, tracking, and reviewing video games on Android and iOS.\n\n## 2. Tech Stack\n```json\n[\n  \"Kotlin Multiplatform\",\n  \"Compose Multiplatform\",\n  \"Koin (Dependency Injection)\",\n  \"Ktor (Networking)\",\n  \"SQLDelight (Local Database)\",\n  \"Coil (Image Loading)\",\n  \"Navigation Compose\",\n  \"Coroutines & Flow\",\n  \"Material 3 Design\"\n]\n```\n\n## 3. Features\n```json\n[\n  \"Cross-Platform Support (Android & iOS)\",\n  \"Game Discovery & Search\",\n  \"Detailed Game Information\",\n  \"Default Collections (Wishlist, Playing, Completed)\",\n  \"Custom User Collections Management\",\n  \"Personal Rating & Review System\",\n  \"Offline Support & Local Data Persistence\",\n  \"Optimized Performance & Caching\",\n  \"Dark/Light Theme Support\"\n]\n```\n\n## 4. Overview\nGameKMP is a showcase of modern mobile development, leveraging **Kotlin Multiplatform (KMP)** to share business logic and **Compose Multiplatform** to share UI code across Android and iOS coupled with **Clean Architecture**. It aims to provide a seamless and cohesive user experience for gamers who want to organize their gaming life.\n\nThe application allows users to search for games, view detailed statistics, and manage them into personalized collections. Beyond standard lists like \"Wishlist\" or \"Completed,\" users can create custom collections to organize games their way. A standout feature is the **Personal Rating System**, which lets users rate games effectively and write private reviews, all stored locally for privacy and offline accessibility.\n\nBuilt with a focus on performance and stability, GameKMP handles complex UI states, nested scrolling, and data persistence gracefully. It demonstrates best practices in KMP development, including dependency injection with Koin, reactive data flows with Coroutines, and type-safe database operations with SQLDelight.\n\n### Screenshots\n#### HomeScreen\n![Screenshot_20250925_173000_GameKMP](https://github.com/user-attachments/assets/5ff002df-c846-4e41-9433-3be257ac600e)\n\n#### Details Screen\n![Screenshot_20250925_173148_GameKMP](https://github.com/user-attachments/assets/07c102df-9ab2-4e3e-8775-1db783fac2d5)\n",
+      "category": "personal_projects",
+      "project_type": "KMP",
+      "github_link": "https://github.com/agnihotripushkar/GameKMP",
+      "live_link": null,
+      "tech_stack": [
+        "Kotlin",
+        "Swift",
+        "Jetpack Compose"
+      ],
+      "features": [],
+      "display_order": 99,
+      "image_url": null
+    },
+    {
+      "title": "LamaEstateApp",
+      "description": "MERN stack website",
+      "long_description": "MERN stack website",
+      "category": "personal_projects",
+      "project_type": "Web App",
+      "github_link": "https://github.com/agnihotripushkar/LamaEstateApp",
+      "live_link": "https://lamaestate-app.vercel.app/",
+      "tech_stack": [
+        "JavaScript",
+        "SCSS",
+        "CSS",
+        "HTML",
+        "Procfile",
+        "Leaflet-map",
+        "Prisma-orm",
+        "React-router-dom",
+        "MongoDB",
+        "Express",
+        "React",
+        "Node.js"
+      ],
+      "features": [],
+      "display_order": 99,
+      "image_url": null
+    },
+    {
+      "title": "MortyApp",
+      "description": "Multi-module Jetpack Compose App with MVVM architecture, ktor as http api client",
+      "long_description": "# Morty\n\nMorty is a modern Android application built with Jetpack Compose that leverages the [Rick and Morty API](https://rickandmortyapi.com/) to provide users with an immersive way to explore characters and episodes from the show.\n\n## Tech Stack\n\n`[\"Kotlin\", \"Jetpack Compose\", \"Material Design 3\", \"Clean Architecture\", \"Hilt\", \"Ktor\", \"Coil\", \"Coroutines & Flow\"]`\n\n## Features\n\n`[\"Browse Characters\", \"Character Details\", \"Episode Guide\", \"Episode Details\", \"Search Functionality\", \"Offline First\"]`\n\n## Overview\n\nThe app is designed using Clean Architecture and the Model-View-ViewModel (MVVM) pattern, ensuring a scalable, robust, and maintainable codebase.\n\n![Screenshot_20250210-145518](https://github.com/user-attachments/assets/3e862bc2-f618-44d1-ba3b-e785c907999b)\n![Screenshot_20250210-145540](https://github.com/user-attachments/assets/bdbb018b-b955-4ef2-b3bd-2ecd44dc632d)\n![Screenshot_20250210-145604](https://github.com/user-attachments/assets/7b010f83-78a5-4f3c-a72b-c9fefa2770b7)\n\n### Architecture\n\nThe application follows the principles of **Clean Architecture** and is modularized by feature.\n\n*   **UI Layer:** Jetpack Compose for declarative UI.\n*   **Domain Layer:** Use cases and business logic.\n*   **Data Layer:** Repositories, API data sources, and local storage.\n*   **DI:** Hilt is used for dependency injection across all modules.\n\n#### Modules\n*   `app`: Main application module and feature integration.\n*   `network`: Network configuration and API definitions.\n*   `core`: Common utilities and shared components.\n\n### Tech Stack Details\n\n*   **Language**: [Kotlin](https://kotlinlang.org/) (100% Kotlin-first)\n*   **UI Toolkit**: [Jetpack Compose](https://developer.android.com/jetpack/compose) - Modern, declarative UI.\n*   **Design System**: [Material Design 3](https://m3.material.io/) - Latest Android design guidelines.\n*   **Architecture**: MVVM with Clean Architecture.\n*   **Dependency Injection**: [Hilt](https://dagger.dev/hilt/) - For decoupled and testable code.\n*   **Networking**: [Ktor](https://ktor.io/) - Asynchronous HTTP client for fetching data.\n*   **Image Loading**: [Coil](https://coil-kt.github.io/coil/) - Efficient image loading for Compose.\n*   **Navigation**: [Compose Navigation](https://developer.android.com/guide/navigation/navigation-compose) - Type-safe navigation between screens.\n*   **Concurrency**: [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html) & [Flow](https://kotlinlang.org/docs/flow.html) - For asynchronous programming.\n*   **Testing**: JUnit, Mockk (planned).\n",
+      "category": "published_apps",
+      "project_type": "App",
+      "github_link": "https://github.com/agnihotripushkar/MortyApp",
+      "live_link": null,
+      "tech_stack": [
+        "Kotlin",
+        "Ktor",
+        "MVVM",
+        "Jetpack Compose"
+      ],
+      "features": [],
+      "display_order": 99,
+      "image_url": null
+    },
+    {
+      "title": "YogaAI",
+      "description": "YogaAI — GitHub repository",
+      "long_description": "# YogaAI\n\nYogaAI is a modern Android application built with **Jetpack Compose** that helps users practice yoga, track their wellness, and analyze their poses in real time using on-device AI.\n\n---\n\n## Features\n\n- **Home Dashboard** — Daily wellness overview with risk prediction, streaks, calories, and step count. Integrates with [Health Connect](https://developer.android.com/health-and-fitness/guides/health-connect) to pull live health data.\n- **Yoga Detector** — Real-time pose detection via [MediaPipe](https://developers.google.com/mediapipe) and [CameraX](https://developer.android.com/media/camera/camerax). Provides live audio feedback via Text-to-Speech and tracks hold time per pose.\n- **Pose Results** — Post-session summary with pose details, benefits, alignment cues, and instructions sourced from an on-device pose library.\n- **Smart Onboarding** — Multi-step, responsive onboarding with consent flow and Health Connect permission setup. Adapts layout for phones, foldables, and tablets.\n- **Settings** — Theme selection (system/light/dark), language preferences, Health Connect management, and data deletion.\n\n---\n\n## Tech Stack\n\n| Layer | Technology |\n|---|---|\n| Language | [Kotlin](https://kotlinlang.org/) |\n| UI | [Jetpack Compose](https://developer.android.com/jetpack/compose) + Material 3 |\n| Architecture | MVI (Model-View-Intent) + Clean Architecture |\n| Dependency Injection | [Koin](https://insert-koin.io/) |\n| Navigation | [Navigation Compose](https://developer.android.com/jetpack/compose/navigation) |\n| Health Data | [Health Connect SDK](https://developer.android.com/health-and-fitness/guides/health-connect) |\n| AI / Pose Detection | [MediaPipe Tasks Vision](https://developers.google.com/mediapipe/solutions/vision/pose_landmarker) |\n| Camera | [CameraX](https://developer.android.com/media/camera/camerax) |\n| Storage | [DataStore Preferences](https://developer.android.com/topic/libraries/architecture/datastore) |\n| Logging | [Timber](https://github.com/JakeWharton/timber) |\n| Crash Reporting | [Firebase Crashlytics](https://firebase.google.com/docs/crashlytics) |\n| Background Work | [WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager) |\n\n---\n\n## Architecture\n\nYogaAI follows **MVI (Model-View-Intent)** on the presentation layer, layered over a clean data → domain → UI separation.\n\n### Presentation Layer\n\nEvery screen has four parts living in the `ui` package of its feature:\n\n| Part | Description |\n|---|---|\n| `XxxState` | Immutable data class holding all UI state, including permission flags |\n| `XxxAction` | Sealed interface of every user interaction (button clicks, lifecycle events) |\n| `XxxEvent` | Sealed interface of one-time side effects (navigation, snackbars) |\n| `XxxViewModel` | Holds `StateFlow<XxxState>`, processes `onAction()`, emits `Channel<XxxEvent>` |\n\n```\nUser interaction\n      │\n      ▼\nonAction(XxxAction)          ← single entry point into the ViewModel\n      │\n      ▼\nViewModel updates _state     ← via _state.update { ... }\n      │\n      ├──► StateFlow<XxxState>  ─► XxxScreen (stateless, previewable)\n      │\n      └──► Channel<XxxEvent>   ─► XxxRoot  (observes events, owns ViewModel)\n```\n\n#### Composable split\n\n- **`XxxRoot`** — holds the ViewModel via `koinViewModel()`, observes events with `ObserveAsEvents`, launches permission requests, and passes `state` + `onAction` down.\n- **`XxxScreen`** — receives only `state: XxxState` and `onAction: (XxxAction) -> Unit`. Pure and fully previewable.\n\n#### Core utilities\n\n- **`UiText`** (`core/presentation`) — sealed interface wrapping `DynamicString` or `StringResource` for safe, localizable error messages.\n- **`ObserveAsEvents`** (`core/presentation`) — lifecycle-aware `Flow` collector for one-time events using `repeatOnLifecycle(STARTED)`.\n\n### Data Layer\n\n- **Repositories** are defined as interfaces in `domain/` and implemented in `data/repository/`.\n- **`HomeRepository`** reads health metrics from Health Connect via `HealthCo",
+      "category": "published_apps",
+      "project_type": "App",
+      "github_link": "https://github.com/agnihotripushkar/YogaAI",
+      "live_link": null,
+      "tech_stack": [
+        "Kotlin"
+      ],
+      "features": [],
+      "display_order": 99,
+      "image_url": null
+    }
+  ]
+}

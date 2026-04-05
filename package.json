@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "sync-repos": "node scripts/populate_db.js",
+    "sync-repos:preview": "node scripts/populate_db.js --dry-run",
+    "set-order": "node scripts/set_order.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.84.0",

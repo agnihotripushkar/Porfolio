@@ -1,6 +1,8 @@
 import { supabase } from '@/lib/supabase';
 import Image from 'next/image';
 import Link from 'next/link';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { FaGithub, FaExternalLinkAlt, FaAndroid, FaChrome, FaArrowLeft, FaGlobe, FaApple } from 'react-icons/fa';
 import { SiReact, SiKotlin, SiFlutter } from 'react-icons/si';
 import Navbar from '@/components/Navbar';
@@ -136,7 +138,9 @@ export default async function ProjectDetails({ params }) {
                             <div>
                                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Overview</h2>
                                 <div className="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
-                                    <div className="whitespace-pre-wrap">{project.long_description || project.description}</div>
+                                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                        {project.long_description || project.description}
+                                    </ReactMarkdown>
                                 </div>
                             </div>
                         </div>
