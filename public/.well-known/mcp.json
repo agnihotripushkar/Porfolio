@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "pushkar-portfolio": {
+      "description": "MCP server for Pushkar Agnihotri's portfolio — query projects, bio, experience, and skills.",
+      "type": "http",
+      "url": "/api/mcp"
+    }
+  }
+}
