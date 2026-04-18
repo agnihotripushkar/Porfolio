@@ -40,11 +40,11 @@ const FeaturedProjects = async ({ limit }) => {
                         Selected <span className="text-slate-400">Work.</span>
                     </h2>
                     <p className="text-lg text-slate-500 font-medium max-w-2xl">
-                        A collection of applications, extensions, and technical projects I&apos;ve built to solve real-world problems.
+                        A collection of applications and technical projects I&apos;ve built to solve real-world problems.
                     </p>
                 </div>
 
-                {renderProjectSection('Published Apps & Extensions', categories.published_apps)}
+                {renderProjectSection('Published Apps', categories.published_apps)}
                 {renderProjectSection('Personal Projects', categories.personal_projects)}
                 {renderProjectSection('Contract Work', categories.contract_work)}
 
