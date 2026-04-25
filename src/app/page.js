@@ -26,7 +26,7 @@ export default function Home() {
         <Hero />
         <Education />
         <Skills />
-        <FeaturedProjects limit={3} />
+        <FeaturedProjects />
         <Experience />
         <Articles />
         <Contact />

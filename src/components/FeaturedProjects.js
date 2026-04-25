@@ -1,19 +1,14 @@
 import Link from 'next/link';
 import ImportedProjectCard from './ProjectCard';
-import { getAllProjects } from '@/lib/projectService';
+import { getFeaturedProjectsByCategory } from '@/lib/projectService';
 
-const FeaturedProjects = async ({ limit }) => {
-    const categories = await getAllProjects();
+const FeaturedProjects = async () => {
+    const categories = await getFeaturedProjectsByCategory();
 
     const ProjectCard = (props) => <ImportedProjectCard {...props} />;
 
     const renderProjectSection = (title, projects) => {
         if (!projects || projects.length === 0) return null;
-
-        let displayedProjects = projects;
-        if (limit) {
-            displayedProjects = projects.slice(0, limit);
-        }
 
         return (
             <div className="mb-20">
@@ -24,7 +19,7 @@ const FeaturedProjects = async ({ limit }) => {
                     <div className="h-[1px] flex-grow bg-slate-200/80 dark:bg-white/5"></div>
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {displayedProjects.map((project) => (
+                    {projects.map((project) => (
                         <ProjectCard key={project.id} project={project} />
                     ))}
                 </div>
@@ -46,7 +41,7 @@ const FeaturedProjects = async ({ limit }) => {
 
                 {renderProjectSection('Published Apps', categories.published_apps)}
                 {renderProjectSection('Personal Projects', categories.personal_projects)}
-                {renderProjectSection('Contract Work', categories.contract_work)}
+                {renderProjectSection('Freelance', categories.freelance)}
 
                 <div className="mt-16 flex justify-center md:justify-start">
                     <Link

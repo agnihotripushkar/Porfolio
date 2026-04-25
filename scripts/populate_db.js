@@ -164,11 +164,13 @@ function determineProjectType(repo, languages, topics) {
 
   if (allText.includes('extension') || allText.includes('chrome')) return 'Extension';
   if (allText.includes('flutter') || allText.includes('dart')) return 'Flutter';
-  if (allText.includes('react native') || allText.includes('expo')) return 'React Native';
+  if (allText.includes('react native') || allText.includes('expo')) return 'React Native App';
   if (allText.includes('kmp') || allText.includes('kotlin multiplatform') || allText.includes('multiplatform')) return 'KMP';
   if (allText.includes('android') || allText.includes('jetpack') || allText.includes('compose') ||
       (languages.includes('Kotlin') && !allText.includes('spring'))) return 'App';
-  if (allText.includes('spring') || allText.includes('backend') || allText.includes('server')) return 'Backend';
+  if (allText.includes('ios') || allText.includes('swiftui') || allText.includes('widgetkit') ||
+      allText.includes('uikit') || languages.includes('Swift')) return 'App';
+  if (allText.includes('spring') || allText.includes('backend') || allText.includes('server')) return 'Github';
   if (allText.includes('react') || allText.includes('next') || allText.includes('mern') ||
       allText.includes('website') || allText.includes('web') || repo.name.endsWith('.io') ||
       languages.includes('TypeScript') || languages.includes('JavaScript')) return 'Web App';
@@ -184,7 +186,7 @@ function determineCategory(repoName, projectType) {
 
   if (contractRepos.has(name)) return 'contract_work';
   if (publishedRepos.has(name)) return 'published_apps';
-  if (projectType === 'App' || projectType === 'Flutter App' || projectType === 'React Native') return 'published_apps';
+  if (projectType === 'App' || projectType === 'Flutter App' || projectType === 'React Native App') return 'published_apps';
   return 'personal_projects';
 }
 
@@ -304,6 +306,8 @@ async function run() {
       features: [],
       display_order: repo.stargazers_count > 0 ? 0 : 99,
       image_url: null,
+      is_published: true,
+      // is_featured and home_order intentionally omitted — set manually in Supabase dashboard
     };
 
     results.push(projectData);

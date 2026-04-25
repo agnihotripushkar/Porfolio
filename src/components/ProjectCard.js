@@ -1,11 +1,11 @@
 "use client";
 import Link from 'next/link';
-import { FaGithub, FaExternalLinkAlt, FaAndroid, FaGlobe, FaArrowRight, FaChrome, FaApple } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaAndroid, FaGlobe, FaArrowRight, FaChrome, FaApple, FaServer, FaCode } from 'react-icons/fa';
 import { SiReact, SiKotlin, SiFlutter } from 'react-icons/si';
 import { useWebHaptics } from 'web-haptics/react';
 
 const ProjectCard = ({ project }) => {
-    const isFreelance = project.category === 'contract_work';
+    const isFreelance = project.category === 'freelance' || project.category === 'contract_work';
     const { trigger } = useWebHaptics();
 
     return (
@@ -30,15 +30,26 @@ const ProjectCard = ({ project }) => {
             <div className="p-8 flex-grow flex flex-col relative z-10">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 blur-3xl rounded-full -z-10 group-hover:bg-purple-500/20 transition-all duration-500"></div>
                 <div className="flex justify-between items-start mb-6">
-                    <div className={`p-3 rounded-xl border shadow-sm ${(project.project_type === 'iOS' || project.project_type === 'iOS App') ? 'bg-slate-900 border-slate-700' : 'bg-white dark:bg-white/10 border-slate-100 dark:border-white/10'}`}>
+                    <div className={`p-3 rounded-xl border shadow-sm ${(
+                        project.project_type === 'iOS' ||
+                        project.project_type === 'iOS App' ||
+                        (project.project_type === 'App' && project.tech_stack?.some(t => ['Swift', 'SwiftUI', 'Objective-C'].includes(t)))
+                    ) ? 'bg-slate-900 border-slate-700' : 'bg-white dark:bg-white/10 border-slate-100 dark:border-white/10'}`}>
                         {project.project_type === 'Github' && <FaGithub className="text-xl text-purple-600 dark:text-purple-400" />}
-                        {project.project_type === 'App' && <FaAndroid className="text-xl text-green-500 dark:text-green-400" />}
+                        {project.project_type === 'App' && (() => {
+                            const isIOS = project.tech_stack?.some(t => ['Swift', 'SwiftUI', 'Objective-C'].includes(t));
+                            return isIOS
+                                ? <FaApple className="text-xl text-white" />
+                                : <FaAndroid className="text-xl text-green-500 dark:text-green-400" />;
+                        })()}
                         {(project.project_type === 'React Native App' || project.project_type === 'React Native') && <SiReact className="text-xl text-cyan-500 dark:text-cyan-400" />}
                         {(project.project_type === 'KMP' || project.project_type === 'Kotlin Multiplatform') && <SiKotlin className="text-xl text-purple-600 dark:text-purple-400" />}
                         {(project.project_type === 'Flutter' || project.project_type === 'Flutter App') && <SiFlutter className="text-xl text-sky-500 dark:text-sky-400" />}
                         {(project.project_type === 'iOS' || project.project_type === 'iOS App') && <FaApple className="text-xl text-white" />}
                         {(project.project_type === 'Web' || project.project_type === 'Web App') && <FaGlobe className="text-xl text-blue-500 dark:text-blue-400" />}
                         {project.project_type === 'Extension' && <FaChrome className="text-xl text-yellow-500 dark:text-yellow-400" />}
+                        {project.project_type === 'Backend' && <FaServer className="text-xl text-orange-500 dark:text-orange-400" />}
+                        {project.project_type === 'DSA' && <FaCode className="text-xl text-slate-500 dark:text-slate-400" />}
                     </div>
                 </div>
 
