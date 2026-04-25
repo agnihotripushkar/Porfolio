@@ -1,12 +1,16 @@
 "use client";
 import Link from 'next/link';
-import { FaGithub, FaExternalLinkAlt, FaAndroid, FaGlobe, FaArrowRight, FaChrome, FaApple, FaServer, FaCode } from 'react-icons/fa';
-import { SiReact, SiKotlin, SiFlutter } from 'react-icons/si';
+import { FaGithub, FaExternalLinkAlt, FaAndroid, FaGlobe, FaArrowRight, FaChrome, FaApple, FaServer, FaCode, FaRobot, FaBrain } from 'react-icons/fa';
+import { SiReact, SiKotlin, SiFlutter, SiSpringboot } from 'react-icons/si';
 import { useWebHaptics } from 'web-haptics/react';
 
 const ProjectCard = ({ project }) => {
     const isFreelance = project.category === 'freelance' || project.category === 'contract_work';
     const { trigger } = useWebHaptics();
+
+    // Fallback to GitHub social preview if no image_url
+    const imageUrl = project.image_url ||
+        `https://opengraph.githubassets.com/1/agnihotripushkar/${project.title}`;
 
     return (
         <div className="bg-white/60 dark:bg-white/5 backdrop-blur-lg rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-500 flex flex-col h-full relative group border border-slate-200/50 dark:border-white/10 hover:border-purple-500/30 dark:hover:border-purple-500/30">
@@ -17,40 +21,43 @@ const ProjectCard = ({ project }) => {
                     </span>
                 </div>
             )}
-            {project.image_url && (
-                <div className="h-48 overflow-hidden relative border-b border-slate-100/50 dark:border-white/5 bg-slate-50/50 dark:bg-black/20">
-                    <img
-                        src={project.image_url}
-                        alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-white/20 dark:from-black/50 to-transparent pointer-events-none"></div>
-                </div>
-            )}
+            <div className="h-48 overflow-hidden relative border-b border-slate-100/50 dark:border-white/5 bg-slate-50/50 dark:bg-black/20">
+                <img
+                    src={imageUrl}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    onError={(e) => e.target.style.display = 'none'}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-white/20 dark:from-black/50 to-transparent pointer-events-none"></div>
+            </div>
             <div className="p-8 flex-grow flex flex-col relative z-10">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 blur-3xl rounded-full -z-10 group-hover:bg-purple-500/20 transition-all duration-500"></div>
-                <div className="flex justify-between items-start mb-6">
-                    <div className={`p-3 rounded-xl border shadow-sm ${(
-                        project.project_type === 'iOS' ||
-                        project.project_type === 'iOS App' ||
-                        (project.project_type === 'App' && project.tech_stack?.some(t => ['Swift', 'SwiftUI', 'Objective-C'].includes(t)))
-                    ) ? 'bg-slate-900 border-slate-700' : 'bg-white dark:bg-white/10 border-slate-100 dark:border-white/10'}`}>
-                        {project.project_type === 'Github' && <FaGithub className="text-xl text-purple-600 dark:text-purple-400" />}
-                        {project.project_type === 'App' && (() => {
-                            const isIOS = project.tech_stack?.some(t => ['Swift', 'SwiftUI', 'Objective-C'].includes(t));
-                            return isIOS
-                                ? <FaApple className="text-xl text-white" />
-                                : <FaAndroid className="text-xl text-green-500 dark:text-green-400" />;
-                        })()}
-                        {(project.project_type === 'React Native App' || project.project_type === 'React Native') && <SiReact className="text-xl text-cyan-500 dark:text-cyan-400" />}
-                        {(project.project_type === 'KMP' || project.project_type === 'Kotlin Multiplatform') && <SiKotlin className="text-xl text-purple-600 dark:text-purple-400" />}
-                        {(project.project_type === 'Flutter' || project.project_type === 'Flutter App') && <SiFlutter className="text-xl text-sky-500 dark:text-sky-400" />}
-                        {(project.project_type === 'iOS' || project.project_type === 'iOS App') && <FaApple className="text-xl text-white" />}
-                        {(project.project_type === 'Web' || project.project_type === 'Web App') && <FaGlobe className="text-xl text-blue-500 dark:text-blue-400" />}
-                        {project.project_type === 'Extension' && <FaChrome className="text-xl text-yellow-500 dark:text-yellow-400" />}
-                        {project.project_type === 'Backend' && <FaServer className="text-xl text-orange-500 dark:text-orange-400" />}
-                        {project.project_type === 'DSA' && <FaCode className="text-xl text-slate-500 dark:text-slate-400" />}
-                    </div>
+
+                {/* Tech stack icons - horizontal */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                    {(() => {
+                        const getIcon = (type, title, techStack) => {
+                            if (title === 'Claude-Skills-playstore-screenshots') return <FaBrain className="w-4 h-4 text-orange-500 dark:text-orange-400" />;
+                            if (title === 'E-Commerce') return <SiSpringboot className="w-4 h-4 text-green-600 dark:text-green-400" />;
+                            if (title === 'YogSadhna Varga') return <FaRobot className="w-4 h-4 text-pink-500 dark:text-pink-400" />;
+
+                            if (type === 'App') {
+                                const isIOS = techStack?.some(t => ['Swift', 'SwiftUI', 'Objective-C'].includes(t));
+                                return isIOS ? <FaApple className="w-4 h-4 text-slate-900 dark:text-white" /> : <FaAndroid className="w-4 h-4 text-green-500 dark:text-green-400" />;
+                            }
+                            if (type === 'Flutter' || type === 'Flutter App') return <SiFlutter className="w-4 h-4 text-sky-500 dark:text-sky-400" />;
+                            if (type === 'KMP') return <SiKotlin className="w-4 h-4 text-purple-600 dark:text-purple-400" />;
+                            if (type === 'React Native App') return <SiReact className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />;
+                            if (type === 'Web App') return <FaGlobe className="w-4 h-4 text-blue-500 dark:text-blue-400" />;
+                            if (type === 'Extension') return <FaChrome className="w-4 h-4 text-yellow-500 dark:text-yellow-400" />;
+                            if (type === 'Backend') return <FaServer className="w-4 h-4 text-orange-500 dark:text-orange-400" />;
+                            if (type === 'DSA') return <FaCode className="w-4 h-4 text-slate-500 dark:text-slate-400" />;
+                            return <FaGithub className="w-4 h-4 text-purple-600 dark:text-purple-400" />;
+                        };
+
+                        const icon = getIcon(project.project_type, project.title, project.tech_stack);
+                        return icon && <div className="inline-flex items-center justify-center p-2 rounded-lg bg-white dark:bg-white/10 border border-slate-100 dark:border-white/10">{icon}</div>;
+                    })()}
                 </div>
 
                 <h3 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">{project.title}</h3>
