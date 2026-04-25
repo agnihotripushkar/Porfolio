@@ -39,22 +39,24 @@ const supabase = createClient(
  * Lower number = appears first.
  */
 const ORDER = [
-  { title: 'GoalFocus',                           display_order: 1,  home_order: 1,  is_featured: true  },
-  { title: 'F1Companion',                         display_order: 2,  home_order: 2,  is_featured: true  },
-  { title: 'GameKMP',                             display_order: 3,  home_order: 3,  is_featured: true  },
-  { title: 'F1-Tracker',                          display_order: 4,  home_order: 4,  is_featured: true  },
-  { title: 'BuilderPost',                         display_order: 5,  home_order: 5,  is_featured: true  },
-  { title: 'AudioMemo',                           display_order: 6,  home_order: 6,  is_featured: true  },
-  { title: 'AnimeApp',                            display_order: 7,  home_order: 7,  is_featured: true  },
-  { title: 'MortyApp',                            display_order: 8,  home_order: null, is_featured: false },
-  { title: 'YogaAI',                              display_order: 9,  home_order: null, is_featured: false },
-  { title: 'PriceScope',                          display_order: 10, home_order: null, is_featured: false },
-  { title: 'LamaEstateApp',                       display_order: 11, home_order: null, is_featured: false },
-  { title: 'E-Commerce',                          display_order: 12, home_order: null, is_featured: false },
-  { title: 'GameKMP',                             display_order: 3,  home_order: 3,  is_featured: true  },
-  { title: 'Claude-Skills-playstore-screenshots', display_order: 13, home_order: null, is_featured: false },
-  { title: 'leetcode-kt',                         display_order: 14, home_order: null, is_featured: false },
-  { title: 'AdventOfCode',                        display_order: 15, home_order: null, is_featured: false },
+  // Published apps — featured on homepage
+  { title: 'GoalFocus: Pomodoro & Habits',        display_order: 1,  home_order: 1,  is_featured: true  },
+  { title: 'F1 Companion',                        display_order: 2,  home_order: 2,  is_featured: true  },
+  { title: 'System Design Interview Pacer',       display_order: 3,  home_order: 3,  is_featured: true  },
+  // Personal projects — not featured on homepage
+  { title: 'GameKMP',                             display_order: 1,  home_order: null, is_featured: false },
+  { title: 'F1-Tracker',                          display_order: 2,  home_order: null, is_featured: false },
+  { title: 'BuilderPost',                         display_order: 3,  home_order: null, is_featured: false },
+  { title: 'AudioMemo',                           display_order: 4,  home_order: null, is_featured: false },
+  { title: 'AnimeApp',                            display_order: 5,  home_order: null, is_featured: false },
+  { title: 'MortyApp',                            display_order: 6,  home_order: null, is_featured: false },
+  { title: 'YogaAI',                              display_order: 7,  home_order: null, is_featured: false },
+  { title: 'PriceScope',                          display_order: 8,  home_order: null, is_featured: false },
+  { title: 'LamaEstateApp',                       display_order: 9,  home_order: null, is_featured: false },
+  { title: 'E-Commerce',                          display_order: 10, home_order: null, is_featured: false },
+  { title: 'Claude-Skills-playstore-screenshots', display_order: 11, home_order: null, is_featured: false },
+  { title: 'leetcode-kt',                         display_order: 12, home_order: null, is_featured: false },
+  { title: 'AdventOfCode',                        display_order: 13, home_order: null, is_featured: false },
 ];
 
 // Deduplicate by title (last entry wins)

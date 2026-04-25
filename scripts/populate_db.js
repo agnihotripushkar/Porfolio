@@ -181,12 +181,22 @@ function determineProjectType(repo, languages, topics) {
 
 function determineCategory(repoName, projectType) {
   const name = repoName.toLowerCase();
-  const contractRepos = new Set([]); // add repo names for contract work
-  const publishedRepos = new Set(['sakar']); // add repo names for published apps
 
-  if (contractRepos.has(name)) return 'contract_work';
+  // Only explicitly listed repos get published_apps — never auto-promote by type
+  const publishedRepos = new Set([
+    'goalfocus',
+    'f1companion',
+    'f1-companion',
+    'system-design-interviewer-pacer',
+  ]);
+  const contractRepos = new Set([
+    'jin-reflexology',
+    'yogsadhna',
+    'yogsadhnavarga',
+  ]);
+
   if (publishedRepos.has(name)) return 'published_apps';
-  if (projectType === 'App' || projectType === 'Flutter App' || projectType === 'React Native App') return 'published_apps';
+  if (contractRepos.has(name)) return 'contract_work';
   return 'personal_projects';
 }
 

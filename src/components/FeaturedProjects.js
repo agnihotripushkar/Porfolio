@@ -40,7 +40,7 @@ const FeaturedProjects = async () => {
                 </div>
 
                 {renderProjectSection('Published Apps', categories.published_apps)}
-                {renderProjectSection('Personal Projects', categories.personal_projects)}
+                {renderProjectSection('Contract Work', categories.contract_work)}
                 {renderProjectSection('Freelance', categories.freelance)}
 
                 <div className="mt-16 flex justify-center md:justify-start">
